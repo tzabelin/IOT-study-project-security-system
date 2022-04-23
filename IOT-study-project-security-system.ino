@@ -125,6 +125,29 @@ inline int ask_for_input(const char *str)
     //TODO buttons press
 }
 
+/* ### WIFI ### */
+
+void scanWifiNetworks(){
+  WiFi.scanDelete()
+  return WiFi.scanNetworks();
+}
+
+bool isScanWifiNetworksDone(){
+  return WiFi.scanComplete();
+}
+
+String createWifiNetworkInfoString(int i){
+  return WiFi.SSID(i) + String(WiFi.RSSI(i)) + "db";
+}
+
+String connectToWifiNetwork(int i, String password){
+  return WiFi.begin(WiFi.SSID(i), password)
+}
+
+wl_status_t getWifiNetworkConnectionStatus(){
+  return WiFi.status();
+}
+
 /* ### MAIN SUPERLOOP ### */
 
 void setup() 
