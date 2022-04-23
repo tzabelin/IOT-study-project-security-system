@@ -1,5 +1,16 @@
 #include <LCD_I2C.h>
 #include <Wire.h>
+#include "Arduino.h"
+#include "PCF8574.h"
+
+// For arduino uno only pin 1 and 2 are interrupted
+#define ARDUINO_UNO_INTERRUPTED_PIN D3
+
+// Function interrupt
+void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
+
+// Set i2c address
+PCF8574 pcf8574(0x38, ARDUINO_UNO_INTERRUPTED_PIN, keyPressedOnPCF8574);
 
  
 #define RX 8
@@ -88,10 +99,44 @@ void setup()
   lcd.setCursor(0, 0);
   print_LCD("starting...");
   lcd.clear();
+  initialize_PCF8574();
+}
+
+unsigned long timeElapsed;
+void initialize_PCF8574()
+{
+
+  pcf8574.pinMode(P0, INPUT);
+  pcf8574.pinMode(P1, INPUT_PULLUP);
+  pcf8574.pinMode(P2, INPUT);
+  pcf8574.pinMode(P3, INPUT);
+  timeElapsed = millis();
 }
 
 
+bool keyPressed = false;
+void read()
+{
+  if (keyPressed)
+  {
+    uint8_t val0 = pcf8574.digitalRead(P0);
+    uint8_t val1 = pcf8574.digitalRead(P1);
+    uint8_t val2 = pcf8574.digitalRead(P2);
+    uint8_t val3 = pcf8574.digitalRead(P3);
+    keyPressed= false;
+  }
+}
+
+
+
+void keyPressedOnPCF8574(){
+  // Interrupt called (No Serial no read no wire in this function, and DEBUG disabled on PCF library)
+  print_LCD("Interrupt");
+  delay(1000);
+   keyPressed = true;
+
+}
 void loop() 
 { 
-  
+  read();
 }
