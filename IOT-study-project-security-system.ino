@@ -1,4 +1,6 @@
 #include <LCD_I2C.h>
+#include <MFRC522.h>
+#include <SPI.h>
 #include <Wire.h>
 #include "Arduino.h"
 #include "PCF8574.h"
@@ -11,6 +13,9 @@
 #define TX A0
 #define lcdColumns 16
 #define lcdRows 2
+
+#define SS_PIN D4
+#define RST_PIN D0
 
 // For arduino uno only pin 1 and 2 are interrupted
 #define ARDUINO_UNO_INTERRUPTED_PIN D3
@@ -32,8 +37,40 @@ void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
 
 // Set i2c address
 PCF8574 pcf8574(0x38, ARDUINO_UNO_INTERRUPTED_PIN, keyPressedOnPCF8574);
-
+MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
+
+/* ### MFRC522 RFID ### */
+
+void initialize_MFRC522(){
+  SPI.begin(); // Init SPI bus
+  rfid.PCD_Init(); // Init MFRC522
+}
+
+bool isRfidPresent(){
+  if (!rfid.PICC_IsNewCardPresent())
+    return false;
+    
+  if (!rfid.PICC_ReadCardSerial())
+    return false;
+    
+  return true;
+}
+
+// Check is the PICC of Classic MIFARE type
+bool isRfidMifareClassic(){
+  MFRC522::PICC_Type piccType = rfid.PICC_GetType(rfid.uid.sak);
+  Serial.println(rfid.PICC_GetTypeName(piccType));
+  if (piccType != MFRC522::PICC_TYPE_MIFARE_MINI &&
+    piccType != MFRC522::PICC_TYPE_MIFARE_1K &&
+    piccType != MFRC522::PICC_TYPE_MIFARE_4K) {
+    //Serial.println(F("Your tag is not of type MIFARE Classic."));
+    return false;
+  } else {
+    return true;
+  }
+}
+
 
 
 /* ### PCF8574 MULTIPLEXERS ### */
@@ -190,6 +227,26 @@ void security_mode_set()
   delay(30000);
 }
 
+/* ### UTILITIES ### */
+
+/**
+   Helper routine to dump a byte array as hex values to Serial.
+*/
+void printHex(byte *buffer, byte bufferSize) {
+ for (byte i = 0; i < bufferSize; i++) {
+   Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+   Serial.print(buffer[i], HEX);
+ }
+}
+/**
+   Helper routine to dump a byte array as dec values to Serial.
+*/
+void printDec(byte *buffer, byte bufferSize) {
+ for (byte i = 0; i < bufferSize; i++) {
+   Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+   Serial.print(buffer[i], DEC);
+ }
+}
 
 /* ### MAIN SUPERLOOP ### */
 
