@@ -2,9 +2,10 @@
 #include <MFRC522.h>
 #include <SPI.h>
 #include <Wire.h>
-#include "Arduino.h"
-#include "PCF8574.h"
-#include "ESP8266WiFi.h"
+#include <Arduino.h>
+#include <I2CKeyPad.h>
+#include <ESP8266WiFi.h>
+#include <EEPROM.h>
 #include "Menu.h"
 
 /* ### DEFINE ### */
@@ -13,6 +14,7 @@
 #define TX A0
 #define lcdColumns 16
 #define lcdRows 2
+#define KEYPAD_ADDRESS 0x27
 
 #define SS_PIN D4
 #define RST_PIN D0
@@ -22,9 +24,9 @@
 
 /* ### GLOBAL OBJECTS ### */
 
-int securityMode;
-int key_pressed;
-
+int securityMode=0;
+bool keyPressed = false;
+uint8_t intPin = D8;
 
 /* ### MENU ENTRIES ### */
 struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
@@ -33,11 +35,13 @@ struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL,0},{"Press
 
 
 // Function interrupt
-void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
+// void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
 
-// Set i2c address
-PCF8574 pcf8574(0x38, ARDUINO_UNO_INTERRUPTED_PIN, keyPressedOnPCF8574);
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
+
+I2CKeyPad keyPad(KEYPAD_ADDRESS);
+char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
+
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
 /* ### MFRC522 RFID ### */
@@ -75,40 +79,50 @@ bool isRfidMifareClassic(){
 
 /* ### PCF8574 MULTIPLEXERS ### */
 
-unsigned long timeElapsed;
-void initialize_PCF8574()
+void ICACHE_RAM_ATTR keyPressedOnPCF8574()
 {
-  pcf8574.pinMode(P0, INPUT);
-  pcf8574.pinMode(P1, INPUT_PULLUP);
-  pcf8574.pinMode(P2, INPUT);
-  pcf8574.pinMode(P3, INPUT);
-  timeElapsed = millis();
+   keyPressed = true;
 }
 
-bool keyPressed = false;
+void initialize_keypad()
+{
+  lcd.setCursor(0,1);
+  lcd.print("Keypad initialization");
+  //pinMode(D8, INPUT);
+  delay(500);
+  pinMode(intPin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(intPin), keyPressedOnPCF8574, FALLING);
+  lcd.setCursor(0,1);
+  lcd.print("Interrupt attached");
+  delay(1000);
+  keyPad.begin();
+}
+
 int read()
 {
+  lcd.clear();
+  lcd.setCursor(0,1);
+  lcd.print("Key wait");
+  delay(2000);
+  int t=millis();
+  char c=keyPad.getKey();
+  t-=millis();
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(t);
   if (keyPressed)
   {
-    if(pcf8574.digitalRead(P0))
-      return 1;
-    if(pcf8574.digitalRead(P1))
-      return 2;
-    if(pcf8574.digitalRead(P2))
-      return 3;
-    if(pcf8574.digitalRead(P3))
-      return 4;
+    lcd.clear();
+    lcd.setCursor(0,1);
+    lcd.print("Key pressed");
     keyPressed= false;
+    char c=keyPad.getKey();
+    lcd.setCursor(0,0);
+    lcd.print(c);
+    delay(2000);
+    return (c-52);
   }
-  return 0;
-}
-
-void keyPressedOnPCF8574(){
-  // Interrupt called (No Serial no read no wire in this function, and DEBUG disabled on PCF library)
-  print_LCD("Interrupt",0,0);
-  delay(1000);
-   keyPressed = true;
-
+  return -1;
 }
 
 /* ### I2C SCANNER ### */
@@ -117,7 +131,9 @@ int scanner()
 {
   byte error, address;
   int nDevices;
+  int screenPosition=0;
   nDevices = 0;
+  lcd.clear();
   for(address = 1; address < 127; address++ ) 
   {
     Wire.beginTransmission(address);
@@ -125,6 +141,9 @@ int scanner()
       if (error == 0) 
       {
         nDevices++;
+        lcd.setCursor(screenPosition, 1);
+        screenPosition+=2;
+        lcd.print(address);
       }
         
   }
@@ -172,20 +191,21 @@ void print_LCD(const String str, const int &row, const int &col)
 void print_menu(struct menu_entry* menu, int size)
 {
   int running_line=0;
-  while(key_pressed==0){
+  int key=-1;
+  while(true){
 print_LCD(menu[running_line].text, 0, 0);
 print_LCD(menu[running_line+1].text, 0, 1);
-key_pressed=read();
+key=read();
 delay(1000);
-key_pressed=read();
-if(key_pressed!=0)
+/*if(key!=-1 && key<size)
 {
   lcd.clear();
-(*main_menu[key_pressed-1].action)();
-key_pressed=0;
+(*main_menu[key].action)();
+key=-1;
 }
-running_line++;
-running_line%=(size-1);
+*/
+//running_line++;
+//running_line%=(size-1);
 lcd.clear();}
 }
 
@@ -249,7 +269,7 @@ void printDec(byte *buffer, byte bufferSize) {
 }
 
 /* ### MAIN SUPERLOOP ### */
-
+int count=0;
 void setup() 
 {
   delay(2000);
@@ -258,13 +278,14 @@ void setup()
   lcd.begin();
   lcd.backlight();
 
-  lcd.setCursor(0, 0);
   print_LCD("starting...",0,0);
+  delay(1000);
+  initialize_keypad();
+  count++;
   lcd.clear();
-  initialize_PCF8574();
-  
-  key_pressed=0;
-  securityMode=0;
+  lcd.setCursor(0,0);
+  //lcd.print(count);
+  delay(1000);
 }
 
 
