@@ -21,7 +21,7 @@
 
 int securityMode=0;
 bool keyPressed = false;
-
+uint8_t intPin = D8;
 
 /* ### MENU ENTRIES ### */
 struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
@@ -40,19 +40,37 @@ LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
 /* ### PCF8574 MULTIPLEXERS ### */
 
+void ICACHE_RAM_ATTR keyPressedOnPCF8574()
+{
+   keyPressed = true;
+}
+
 void initialize_keypad()
 {
-  pinMode(D8, INPUT);
-  attachInterrupt(digitalPinToInterrupt(15), keyPressedOnPCF8574, FALLING);
+  lcd.setCursor(0,1);
+  lcd.print("Keypad initialization");
+  //pinMode(D8, INPUT);
+  delay(500);
+  pinMode(intPin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(intPin), keyPressedOnPCF8574, FALLING);
+  lcd.setCursor(0,1);
+  lcd.print("Interrupt attached");
+  delay(1000);
   keyPad.begin();
 }
 
 int read()
 {
-    lcd.clear();
-    lcd.setCursor(0,1);
-    lcd.print("Key wait");
-    delay(2000);
+  lcd.clear();
+  lcd.setCursor(0,1);
+  lcd.print("Key wait");
+  delay(2000);
+  int t=millis();
+  char c=keyPad.getKey();
+  t-=millis();
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(t);
   if (keyPressed)
   {
     lcd.clear();
@@ -62,27 +80,10 @@ int read()
     char c=keyPad.getKey();
     lcd.setCursor(0,0);
     lcd.print(c);
-    delay(20000);
+    delay(2000);
     return (c-52);
   }
   return -1;
-}
-
-void keyPressedOnPCF8574()
-{
-    lcd.clear();
-    lcd.print("Interrupt");
-    //lcd.backlight();
-    delay(2000);
-    //lcd.backlight();
-    //delay(2000);
-    //lcd.backlight();
-    //delay(2000);
-    //lcd.backlight();
-    //delay(2000);
-    //lcd.backlight();
-    //delay(2000);
-   keyPressed = true;
 }
 
 /* ### I2C SCANNER ### */
@@ -157,15 +158,15 @@ print_LCD(menu[running_line].text, 0, 0);
 print_LCD(menu[running_line+1].text, 0, 1);
 key=read();
 delay(1000);
-if(key!=-1 && key<size)
+/*if(key!=-1 && key<size)
 {
   lcd.clear();
 (*main_menu[key].action)();
 key=-1;
 }
-
-running_line++;
-running_line%=(size-1);
+*/
+//running_line++;
+//running_line%=(size-1);
 lcd.clear();}
 }
 
@@ -209,7 +210,7 @@ void security_mode_set()
 
 
 /* ### MAIN SUPERLOOP ### */
-
+int count=0;
 void setup() 
 {
   delay(2000);
@@ -221,6 +222,11 @@ void setup()
   print_LCD("starting...",0,0);
   delay(1000);
   initialize_keypad();
+  count++;
+  lcd.clear();
+  lcd.setCursor(0,0);
+  //lcd.print(count);
+  delay(1000);
 }
 
 
