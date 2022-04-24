@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <I2CKeyPad.h>
 #include <ESP8266WiFi.h>
+#include <EEPROM.h>
 #include "Menu.h"
 
 /* ### DEFINE ### */
@@ -29,7 +30,7 @@ struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL,0},{"Press
 
 
 // Function interrupt
-void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
+// void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
 
 I2CKeyPad keyPad(KEYPAD_ADDRESS);
 char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
@@ -41,11 +42,8 @@ LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
 void initialize_keypad()
 {
-  pinMode(0, INPUT);
-  pinMode(1, INPUT);
-  pinMode(2, INPUT);
-  pinMode(3, INPUT);
-  attachInterrupt(1, keyPressedOnPCF8574, FALLING);
+  pinMode(D8, INPUT);
+  attachInterrupt(digitalPinToInterrupt(15), keyPressedOnPCF8574, FALLING);
   keyPad.begin();
 }
 
@@ -73,12 +71,17 @@ int read()
 void keyPressedOnPCF8574()
 {
     lcd.clear();
-    lcd.backlight();
-    lcd.backlight();
-    lcd.backlight();
-    lcd.backlight();
-    lcd.backlight();
-    
+    lcd.print("Interrupt");
+    //lcd.backlight();
+    delay(2000);
+    //lcd.backlight();
+    //delay(2000);
+    //lcd.backlight();
+    //delay(2000);
+    //lcd.backlight();
+    //delay(2000);
+    //lcd.backlight();
+    //delay(2000);
    keyPressed = true;
 }
 
