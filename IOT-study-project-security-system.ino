@@ -17,6 +17,16 @@
 
 /* ### GLOBAL OBJECTS ### */
 
+int securityMode;
+int key_pressed;
+
+
+/* ### MENU ENTRIES ### */
+struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
+struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL,0},{"Press 2 to delete existing RFID", NULL,1}};
+struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL,0},{"Press 2 to check Hall sensor", NULL,1},{"Press 3 to check RFID",NULL,2}};
+
+
 // Function interrupt
 void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
 
@@ -25,11 +35,6 @@ PCF8574 pcf8574(0x38, ARDUINO_UNO_INTERRUPTED_PIN, keyPressedOnPCF8574);
 
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
-struct menu_entry main_menu[4]={{"Press 1 for WiFi",NULL},{"Press 2 for RFID control", NULL},{"Press 3 for sensors check", NULL},{"Press 4 for security mode",NULL}};
-struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL},{"Press 2 to delete existing RFID", NULL}};
-struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL},{"Press 2 to check Hall sensor", NULL},{"Press 3 to check RFID",NULL}};
-
-int key;
 
 /* ### PCF8574 MULTIPLEXERS ### */
 
@@ -114,15 +119,14 @@ byte find_nth_device(int n)
 
 /* ### 1604 LCD ### */
 
-inline void print_LCD(const char* str, int n)
+inline void print_LCD(const String str, int n, const int &row, const int &col)
 {
-    lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print(str);
     lcd.print(n);
 }
 
-inline void print_LCD(const char* str, const int &row, const int &col)
+void print_LCD(const String str, const int &row, const int &col)
 {
     lcd.setCursor(row, col);
     lcd.print(str);
@@ -131,24 +135,29 @@ inline void print_LCD(const char* str, const int &row, const int &col)
 void print_menu(struct menu_entry* menu, int size)
 {
   int running_line=0;
-  while(true){
+  while(key_pressed==0){
 print_LCD(menu[running_line].text, 0, 0);
 print_LCD(menu[running_line+1].text, 0, 1);
-key=read();
+key_pressed=read();
 delay(1000);
-key=read();
-//(*main_menu[key].action)();
+key_pressed=read();
+if(key_pressed!=0)
+{
+  lcd.clear();
+(*main_menu[key_pressed-1].action)();
+key_pressed=0;
+}
 running_line++;
-running_line%=size;
+running_line%=(size-1);
 lcd.clear();}
 }
 
 
 /* ### WIFI ### */
 
-void scanWifiNetworks(){
-  WiFi.scanDelete()
-  return WiFi.scanNetworks();
+int scanWifiNetworks(){
+  WiFi.scanDelete();
+  return WiFi.scanNetworks(); //return number of networks found
 }
 
 bool isScanWifiNetworksDone(){
@@ -159,12 +168,26 @@ String createWifiNetworkInfoString(int i){
   return WiFi.SSID(i) + String(WiFi.RSSI(i)) + "db";
 }
 
-String connectToWifiNetwork(int i, String password){
-  return WiFi.begin(WiFi.SSID(i), password)
+wl_status_t connectToWifiNetwork(int i, String password){
+  return WiFi.begin(WiFi.SSID(i), password);
 }
 
 wl_status_t getWifiNetworkConnectionStatus(){
   return WiFi.status();
+}
+
+
+/* ### SECURITY MODE SET ### */
+
+void security_mode_set()
+{
+  lcd.clear();
+  if(securityMode==0)
+    {securityMode=1;
+  print_LCD("The security mode is ON", 0, 0);}
+  else {securityMode=0;
+  print_LCD("The security mode is OFF", 0, 0);}
+  delay(30000);
 }
 
 
@@ -183,7 +206,8 @@ void setup()
   lcd.clear();
   initialize_PCF8574();
   
-  key=0;
+  key_pressed=0;
+  securityMode=0;
 }
 
 
