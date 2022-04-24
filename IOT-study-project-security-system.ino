@@ -3,6 +3,7 @@
 #include "Arduino.h"
 #include "PCF8574.h"
 #include "ESP8266WiFi.h"
+#include "Menu.h"
 
 /* ### DEFINE ### */
 
@@ -24,6 +25,12 @@ PCF8574 pcf8574(0x38, ARDUINO_UNO_INTERRUPTED_PIN, keyPressedOnPCF8574);
 
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
+struct menu_entry main_menu[4]={{"Press 1 for WiFi",NULL},{"Press 2 for RFID control", NULL},{"Press 3 for sensors check", NULL},{"Press 4 for security mode",NULL}};
+struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL},{"Press 2 to delete existing RFID", NULL}};
+struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL},{"Press 2 to check Hall sensor", NULL},{"Press 3 to check RFID",NULL}};
+
+int key;
+
 /* ### PCF8574 MULTIPLEXERS ### */
 
 unsigned long timeElapsed;
@@ -37,21 +44,26 @@ void initialize_PCF8574()
 }
 
 bool keyPressed = false;
-void read()
+int read()
 {
   if (keyPressed)
   {
-    uint8_t val0 = pcf8574.digitalRead(P0);
-    uint8_t val1 = pcf8574.digitalRead(P1);
-    uint8_t val2 = pcf8574.digitalRead(P2);
-    uint8_t val3 = pcf8574.digitalRead(P3);
+    if(pcf8574.digitalRead(P0))
+      return 1;
+    if(pcf8574.digitalRead(P1))
+      return 2;
+    if(pcf8574.digitalRead(P2))
+      return 3;
+    if(pcf8574.digitalRead(P3))
+      return 4;
     keyPressed= false;
   }
+  return 0;
 }
 
 void keyPressedOnPCF8574(){
   // Interrupt called (No Serial no read no wire in this function, and DEBUG disabled on PCF library)
-  print_LCD("Interrupt");
+  print_LCD("Interrupt",0,0);
   delay(1000);
    keyPressed = true;
 
@@ -110,20 +122,27 @@ inline void print_LCD(const char* str, int n)
     lcd.print(n);
 }
 
-inline void print_LCD(const char* str)
+inline void print_LCD(const char* str, const int &row, const int &col)
 {
-    lcd.clear();
-    lcd.setCursor(0, 0);
+    lcd.setCursor(row, col);
     lcd.print(str);
 }
 
-inline int ask_for_input(const char *str)
+void print_menu(struct menu_entry* menu, int size)
 {
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print(str);
-    //TODO buttons press
+  int running_line=0;
+  while(true){
+print_LCD(menu[running_line].text, 0, 0);
+print_LCD(menu[running_line+1].text, 0, 1);
+key=read();
+delay(1000);
+key=read();
+//(*main_menu[key].action)();
+running_line++;
+running_line%=size;
+lcd.clear();}
 }
+
 
 /* ### WIFI ### */
 
@@ -148,6 +167,7 @@ wl_status_t getWifiNetworkConnectionStatus(){
   return WiFi.status();
 }
 
+
 /* ### MAIN SUPERLOOP ### */
 
 void setup() 
@@ -159,12 +179,15 @@ void setup()
   lcd.backlight();
 
   lcd.setCursor(0, 0);
-  print_LCD("starting...");
+  print_LCD("starting...",0,0);
   lcd.clear();
   initialize_PCF8574();
+  
+  key=0;
 }
 
+
 void loop() 
-{ 
-  read();
+{
+  print_menu(main_menu,4); 
 }
