@@ -14,7 +14,7 @@
 #define TX A0
 #define lcdColumns 16
 #define lcdRows 2
-#define KEYPAD_ADDRESS 0x27
+#define KEYPAD_ADDRESS 0x23
 
 #define SS_PIN D4
 #define RST_PIN D0
