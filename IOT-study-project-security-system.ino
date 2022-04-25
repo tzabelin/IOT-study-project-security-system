@@ -3,13 +3,15 @@
 #include <SPI.h>
 #include <Wire.h>
 #include <Arduino.h>
-#include <I2CKeyPad.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
+#include <PCF8574.h>
+#include <I2CKeyPad.h>
 #include "Menu.h"
 #include "HtmlSource.h"
+
 
 /* ### DEFINE ### */
 
@@ -22,14 +24,60 @@
 #define SS_PIN D4
 #define RST_PIN D0
 
-// For arduino uno only pin 1 and 2 are interrupted
-#define ARDUINO_UNO_INTERRUPTED_PIN D3
+char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
 
 /* ### GLOBAL OBJECTS ### */
 
 int securityMode=0;
 bool keyPressed = false;
 uint8_t intPin = D8;
+
+MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the rfid class
+PCF8574 sensorMultiplexer(0x00); //Instance of the pcf8574 multiplexor class for sensors
+
+I2CKeyPad keyPad(KEYPAD_ADDRESS);
+
+LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
+
+ESP8266WebServer server(80);
+
+/* ### PCF8574 MULTIPLEXERS ### */
+
+void initializeKeypad()
+{
+  lcd.setCursor(0,1);
+  lcd.print("KEYPAD_BEGIN");
+  keyPad.begin();
+  delay(100);
+  lcd.print("KEYPAD_READY");
+}
+
+void check_movement_sensor()
+{
+  if(sensorMultiplexer.digitalRead(P1))
+    {lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Movement detected");
+    delay(2000);}
+    else{lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Movement not detected");
+    delay(2000);}
+}
+
+void check_Hall_sensor()
+{
+  if(sensorMultiplexer.digitalRead(P2))
+  {lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("The door is closed");
+    delay(2000);}
+    else
+    {lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("The door is open");
+    delay(2000);}
+}
 
 byte nuidPICC[4];
 byte rfidEntriesSize;
@@ -38,19 +86,7 @@ RfidEntry rfidEntries[4];
 /* ### MENU ENTRIES ### */
 struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
 struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL,0},{"Press 2 to delete existing RFID", NULL,1}};
-struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL,0},{"Press 2 to check Hall sensor", NULL,1},{"Press 3 to check RFID",NULL,2}};
-
-// Function interrupt
-// void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
-
-MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
-
-I2CKeyPad keyPad(KEYPAD_ADDRESS);
-char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
-
-LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
-
-ESP8266WebServer server(80);
+struct menu_entry sensors_menu[3]={{"Press 1 to check movement sensor",&check_movement_sensor,0},{"Press 2 to check Hall sensor", &check_Hall_sensor,1},{"Press 3 to check RFID",NULL,2}};
 
 /* ### Web Server ### */
 
@@ -145,41 +181,23 @@ RfidEntry readRfidEntryFromEEPROM(){
   EEPROM.get(addr,data);
 }
 
-/* ### PCF8574 MULTIPLEXERS ### */
-
-void initializeKeypad()
-{
-  lcd.setCursor(0,1);
-  lcd.print("KEYPAD_BEGIN");
-  keyPad.begin();
-  delay(100);
-  lcd.print("KEYPAD_READY");
-}
 
 int read()
-{
+{/*
   lcd.clear();
   lcd.setCursor(0,1);
   lcd.print("Key wait");
   delay(2000);
-  int t=millis();
-  char c=keyPad.getKey();
-  t-=millis();
   lcd.clear();
+  lcd.setCursor(0,1);
+  lcd.print("Key pressed");
+  keyPressed= false;
+  int c=keyPad.getKey();
   lcd.setCursor(0,0);
-  lcd.print(t);
-  if (keyPressed)
-  {
-    lcd.clear();
-    lcd.setCursor(0,1);
-    lcd.print("Key pressed");
-    keyPressed= false;
-    char c=keyPad.getKey();
-    lcd.setCursor(0,0);
-    lcd.print(c);
-    delay(2000);
-    return (c-52);
-  }
+  lcd.print(c);
+  delay(2000);
+  return (c-52);*/
+  
   return -1;
 }
 
@@ -331,8 +349,8 @@ void printDec(byte *buffer, byte bufferSize) {
  }
 }
 
+
 /* ### MAIN SUPERLOOP ### */
-int count=0;
 void setup() 
 {
   delay(2000);
@@ -341,15 +359,16 @@ void setup()
 
   lcd.begin();
   lcd.backlight();
-  
+  //delay(10000);
   print_LCD("starting...",0,0);
   delay(1000);
-  initializeKeypad();
-  count++;
-  lcd.clear();
-  lcd.setCursor(0,0);
-  //lcd.print(count);
+  keypad.begin();                       // initialize the keypad
   delay(1000);
+  print_LCD("keypad ok...",0,1);
+  delay(1000);
+  //initialize_keypad();
+  sensorMultiplexer.pinMode(B01111111, INPUT);
+  sensorMultiplexer.begin();
 }
 
 
