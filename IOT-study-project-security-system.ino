@@ -361,7 +361,7 @@ void setup()
   lcd.backlight();
   //delay(10000);
   print_LCD("Starting...",0,0);
-  initializeKeypad
+  initializeKeypad();
   
   sensorMultiplexer.pinMode(B01111111, INPUT);
   sensorMultiplexer.begin();
