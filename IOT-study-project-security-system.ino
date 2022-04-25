@@ -137,23 +137,13 @@ RfidEntry readRfidEntryFromEEPROM(){
 
 /* ### PCF8574 MULTIPLEXERS ### */
 
-void ICACHE_RAM_ATTR keyPressedOnPCF8574()
-{
-   keyPressed = true;
-}
-
-void initialize_keypad()
+void initializeKeypad()
 {
   lcd.setCursor(0,1);
-  lcd.print("Keypad initialization");
-  //pinMode(D8, INPUT);
-  delay(500);
-  pinMode(intPin, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(intPin), keyPressedOnPCF8574, FALLING);
-  lcd.setCursor(0,1);
-  lcd.print("Interrupt attached");
-  delay(1000);
+  lcd.print("KEYPAD_BEGIN");
   keyPad.begin();
+  delay(100);
+  lcd.print("KEYPAD_READY");
 }
 
 int read()
@@ -251,20 +241,20 @@ void print_menu(struct menu_entry* menu, int size)
   int running_line=0;
   int key=-1;
   while(true){
-print_LCD(menu[running_line].text, 0, 0);
-print_LCD(menu[running_line+1].text, 0, 1);
-key=read();
-delay(1000);
-/*if(key!=-1 && key<size)
-{
-  lcd.clear();
-(*main_menu[key].action)();
-key=-1;
-}
-*/
-//running_line++;
-//running_line%=(size-1);
-lcd.clear();}
+  print_LCD(menu[running_line].text, 0, 0);
+  print_LCD(menu[running_line+1].text, 0, 1);
+  key=read();
+  delay(1000);
+  /*if(key!=-1 && key<size)
+  {
+    lcd.clear();
+    (*main_menu[key].action)();
+    key=-1;
+  }
+  */
+  //running_line++;
+  //running_line%=(size-1);
+  lcd.clear();}
 }
 
 
@@ -307,6 +297,11 @@ void security_mode_set()
 
 /* ### UTILITIES ### */
 
+void initWire(){
+  Wire.begin();
+  Wire.setClock(400000);
+}
+
 /**
    Helper routine to dump a byte array as hex values to Serial.
 */
@@ -331,14 +326,15 @@ int count=0;
 void setup() 
 {
   delay(2000);
-  Wire.begin();
+  
+  initWire();
 
   lcd.begin();
   lcd.backlight();
-
+  
   print_LCD("starting...",0,0);
   delay(1000);
-  initialize_keypad();
+  initializeKeypad();
   count++;
   lcd.clear();
   lcd.setCursor(0,0);
