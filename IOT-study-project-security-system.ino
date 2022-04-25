@@ -24,7 +24,8 @@
 #define SS_PIN D4
 #define RST_PIN D0
 
-char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
+char keys[] = ".8520741edhn963sNF";
+//char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
 
 /* ### GLOBAL OBJECTS ### */
 
@@ -34,16 +35,13 @@ struct RfidEntry {
   byte role;
 };
 
-<<<<<<< HEAD
-char key='N';
+char key = 'N';
 
-int securityMode=0;
-=======
 int securityMode = 0;
 bool alertTriggered = false;
 
->>>>>>> 6a2106baa58b14bfa05c1f303a661796359e1e7d
-bool keyPressed = false;
+uint32_t lastKeyPressed = 0;
+
 uint8_t intPin = D8;
 
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the rfid class
@@ -111,7 +109,7 @@ void handleRoot() {
 
 void getAlert() 
 {
-  server.send(200, "text/plane", "");
+  server.send(200, "text/plane", String(alertTriggered));
 }
 
 /* ### MFRC522 RFID ### */
@@ -394,8 +392,25 @@ void loop()
   // Next functions check if value is assigned or not.
   // 1. If assigned - key was pressed. Unassign it to "N" (No Key)
   // 2. If not assigned - key was not pressed.
+
+  uint32_t now = millis();
+
+  if (now - lastKeyPressed >= 100)
+  {
+    lastKeyPressed = now;
+
+    //start = micros();
+    uint8_t index = keyPad.getKey();
+    //stop = micros();
+
+    lcd.clear();
+    lcd.setCursor(0, 0); //1st line, 1st block
+    lcd.print(String(millis()));
+    lcd.setCursor(0, 1); //2nd line, 1st block
+    lcd.print(keys[index]);
+  }
   
-  print_menu(main_menu,4);
+  // print_menu(main_menu,4);
   //scanner();
   //(*sensors_menu[1].action)();
   //server.handleClient();
