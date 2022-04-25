@@ -68,19 +68,20 @@ struct ActionEntry {
 };
 
 
-char key = 'N';
-
 int securityMode = 0;
 bool alertTriggered = false;
 
-uint32_t lastKeyPressed = 0;
-
-uint8_t intPin = D8;
-
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the rfid class
+byte nuidPICC[4];
+byte rfidEntriesSize;
+RfidEntry rfidEntries[4];
+
 PCF8574 sensorMultiplexer(0x20); //Instance of the pcf8574 multiplexor class for sensors
 
 I2CKeyPad keyPad(KEYPAD_ADDRESS);
+uint32_t lastKeyPressed = 0;
+uint8_t intPin = D8;
+char key = 'N';
 
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
@@ -125,10 +126,37 @@ void check_Hall_sensor()
    delay(2000);}
 }
 
+/* ### SECURITY MODE SET ### */
+
+void security_mode_set()
+{
+  lcd.clear();
+  if(securityMode==0)
+    {securityMode=1;
+  print_LCD("The security mode is ON", 0, 0);}
+  else {securityMode=0;
+  print_LCD("The security mode is OFF", 0, 0);}
+  uint32_t start = millis();
+uint32_t now = millis();
+  if (now - start <= 1000)
+  {
+    now=millis();
+  }
+}
+
 /* ### MENU ENTRIES ### */
-struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
-struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL,0},{"Press 2 to delete existing RFID", NULL,1}};
-struct menu_entry sensors_menu[3]={{"Press 1 to check movement sensor",&check_movement_sensor,0},{"Press 2 to check Hall sensor", &check_Hall_sensor,1},{"Press 3 to check RFID",NULL,2}};
+struct menu_entry main_menu[4]={{"WiFi control",&WiFi_control,0},{"RFID control", &RFID_control,1},{"Sensors check", &sensors,2},{"Security mode change",&security_mode_set,3}};
+struct menu_entry rfid_menu[2]={{"Add new RFID",NULL,0},{"Delete existing RFID", NULL,1}};
+struct menu_entry sensors_menu[3]={{"Movement sensor",&check_movement_sensor,0},{"Hall sensor", &check_Hall_sensor,1},{"RFID",NULL,2}};
+
+/* ### Sensors menu function ### */
+
+void sensors()
+{
+  print_menu(sensors_menu,3);
+}
+
+
 
 /* ### Web Server ### */
 
@@ -252,23 +280,21 @@ void readRfidBufferFromEEPROM(){
 
 
 void read()
-{/*
-  lcd.clear();
-  lcd.setCursor(0,1);
-  lcd.print("Key wait");
-  delay(2000);
-  lcd.clear();
-  lcd.setCursor(0,1);
-  lcd.print("Key pressed");
-  keyPressed= false;
-  int c=keyPad.getKey();
-  lcd.setCursor(0,0);
-  lcd.print(c);
-  delay(2000);
-  return (c-52);*/
-  if(key!='N')
-  {key = keyPad.getKey();}
-  return;
+{
+  key='N';
+  uint32_t now = millis();
+
+  if (now - lastKeyPressed >= 100)
+  {
+    lastKeyPressed = now;
+
+    //start = micros();
+    uint8_t index = keyPad.getKey();
+    //stop = micros();
+
+    key=(keys[index]);
+    
+  }
 }
 
 /* ### I2C SCANNER ### */
@@ -337,24 +363,64 @@ void print_LCD(const String str, const int &row, const int &col)
 void print_menu(struct menu_entry* menu, int size)
 {
   int running_line=0;
-  while(true){
   print_LCD(menu[running_line].text, 0, 0);
-  print_LCD(menu[running_line+1].text, 0, 1);
+  print_LCD(menu[(running_line+1)%(size)].text, 0, 1);
+  while(true)
+  {
   read();
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print(key);
-  delay(2000);
-  if(key!='N')
+  if(key=='e')
   {
     lcd.clear();
-    (*main_menu[(int)key-52].action)();
+    (*main_menu[running_line].action)();
+  lcd.setCursor(0,0);
+  lcd.print(running_line);
+  lcd.setCursor(3,0);
+  lcd.print(menu[running_line].text);
+  
+  lcd.setCursor(0,1);
+  lcd.print((running_line+1)%(size));
+  lcd.setCursor(3,1);
+  lcd.print(menu[(running_line+1)%(size)].text);
   }
-  running_line++;
-  running_line%=(size-1);
-  lcd.clear();}
+  if(key=='s')
+  {
+    lcd.clear();
+    return;
+  }
+  if(key=='8')
+  {running_line++;
+  running_line%=(size);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(running_line);
+  lcd.setCursor(3,0);
+  lcd.print(menu[running_line].text);
+  
+  lcd.setCursor(0,1);
+  lcd.print((running_line+1)%(size));
+  lcd.setCursor(3,1);
+  lcd.print(menu[(running_line+1)%(size)].text);
+  }
+  
+  if(key=='2')
+  {running_line--;
+  if(running_line<0)
+  {running_line=(size-1);}
+  
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(running_line);
+  lcd.setCursor(3,0);
+  lcd.print(menu[running_line].text);
+  
+  lcd.setCursor(0,1);
+  lcd.print((running_line+1)%(size));
+  lcd.setCursor(3,1);
+  lcd.print(menu[(running_line+1)%(size)].text);
+  }
+  
+  }
 }
-
 
 /* ### WIFI ### */
 
@@ -379,19 +445,6 @@ wl_status_t getWifiNetworkConnectionStatus(){
   return WiFi.status();
 }
 
-
-/* ### SECURITY MODE SET ### */
-
-void security_mode_set()
-{
-  lcd.clear();
-  if(securityMode==0)
-    {securityMode=1;
-  print_LCD("The security mode is ON", 0, 0);}
-  else {securityMode=0;
-  print_LCD("The security mode is OFF", 0, 0);}
-  delay(30000);
-}
 
 /* ### UTILITIES ### */
 
@@ -450,25 +503,9 @@ void loop()
   // 1. If assigned - key was pressed. Unassign it to "N" (No Key)
   // 2. If not assigned - key was not pressed.
 
-  uint32_t now = millis();
-
-  if (now - lastKeyPressed >= 100)
-  {
-    lastKeyPressed = now;
-
-    //start = micros();
-    uint8_t index = keyPad.getKey();
-    //stop = micros();
-
-    lcd.clear();
-    lcd.setCursor(0, 0); //1st line, 1st block
-    lcd.print(String(millis()));
-    lcd.setCursor(0, 1); //2nd line, 1st block
-    lcd.print(keys[index]);
-  }
   
-  // print_menu(main_menu,4);
+  
+   print_menu(main_menu,4);
   //scanner();
-  //(*sensors_menu[1].action)();
   //server.handleClient();
 }
