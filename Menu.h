@@ -34,7 +34,7 @@ void WiFi_connect()
 }
 
 void WiFi_control()
-{
+{ 
   int numberOfNetworks=scanWifiNetworks();
   struct menu_entry* networks=new menu_entry[numberOfNetworks];
   for(int i=0;i<numberOfNetworks;i++)

@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
-#include <ESP8266WebServer.h>
+#include <ESP8266WebServer.h> 
 #include <EEPROM.h>
 #include <PCF8574.h>
 #include <I2CKeyPad.h>
@@ -34,9 +34,15 @@ struct RfidEntry {
   byte role;
 };
 
+<<<<<<< HEAD
 char key='N';
 
 int securityMode=0;
+=======
+int securityMode = 0;
+bool alertTriggered = false;
+
+>>>>>>> 6a2106baa58b14bfa05c1f303a661796359e1e7d
 bool keyPressed = false;
 uint8_t intPin = D8;
 
@@ -101,6 +107,11 @@ struct menu_entry sensors_menu[3]={{"Press 1 to check movement sensor",&check_mo
 
 void handleRoot() {
   server.send(200, "text/html", htmlSourceString);
+}
+
+void getAlert() 
+{
+  server.send(200, "text/plane", "");
 }
 
 /* ### MFRC522 RFID ### */
