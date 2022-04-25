@@ -3,10 +3,12 @@
 #include <SPI.h>
 #include <Wire.h>
 #include <Arduino.h>
-#include <I2CKeyPad.h>
 #include <ESP8266WiFi.h>
 #include <EEPROM.h>
 #include "Menu.h"
+//#include "i2c-keypad-library-arduino/src/I2cKeypad.h"
+#include "i2c-keypad-library-arduino/src/I2cKeypad.cpp"
+
 
 /* ### DEFINE ### */
 
@@ -14,13 +16,16 @@
 #define TX A0
 #define lcdColumns 16
 #define lcdRows 2
-#define KEYPAD_ADDRESS 0x27
+#define KEYPAD_ADDRESS 0x23
 
 #define SS_PIN D4
 #define RST_PIN D0
 
-// For arduino uno only pin 1 and 2 are interrupted
-#define ARDUINO_UNO_INTERRUPTED_PIN D3
+#define KEYPAD_DEBOUNCE_TIME 20                // 20ms debounce time for the keypad
+#define KEYPAD_ROWS 4
+#define KEYPAD_COlS 4
+byte colPins[KEYPAD_ROWS] = {0, 1, 2, 3};      // these are the i/o pins for each keypad row connected to the MCP23008 chip
+byte rowPins[KEYPAD_COlS] = {4, 5, 6, 7};
 
 /* ### GLOBAL OBJECTS ### */
 
@@ -39,8 +44,15 @@ struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL,0},{"Press
 
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
 
-I2CKeyPad keyPad(KEYPAD_ADDRESS);
-char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
+char keyMap[KEYPAD_ROWS][KEYPAD_COlS] = {
+  {'1','2','3','A'},                                // row 1 keys
+  {'4','5','6','B'},                                // row 2 keys
+  {'7','8','9','C'},                                // row 3 keys
+  {'0','-','.','E'}                                 // row 4 keys
+};
+
+I2cKeypad keypad( ((char*)keyMap), rowPins, colPins,  KEYPAD_ROWS, KEYPAD_COlS, KEYPAD_DEBOUNCE_TIME, KEYPAD_ADDRESS);
+
 
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
@@ -84,44 +96,36 @@ void ICACHE_RAM_ATTR keyPressedOnPCF8574()
    keyPressed = true;
 }
 
-void initialize_keypad()
-{
-  lcd.setCursor(0,1);
-  lcd.print("Keypad initialization");
-  //pinMode(D8, INPUT);
-  delay(500);
-  pinMode(intPin, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(intPin), keyPressedOnPCF8574, FALLING);
-  lcd.setCursor(0,1);
-  lcd.print("Interrupt attached");
-  delay(1000);
-  keyPad.begin();
-}
+//void initialize_keypad()
+//{
+//  lcd.setCursor(0,1);
+//  lcd.print("Keypad initialization");
+//  //pinMode(D8, INPUT);
+//  delay(500);
+//  pinMode(intPin, INPUT);
+//  attachInterrupt(digitalPinToInterrupt(intPin), keyPressedOnPCF8574, FALLING);
+//  lcd.setCursor(0,1);
+//  lcd.print("Interrupt attached");
+//  delay(1000);
+//  keypad.begin(); 
+//}
 
 int read()
-{
+{/*
   lcd.clear();
   lcd.setCursor(0,1);
   lcd.print("Key wait");
   delay(2000);
-  int t=millis();
-  char c=keyPad.getKey();
-  t-=millis();
   lcd.clear();
+  lcd.setCursor(0,1);
+  lcd.print("Key pressed");
+  keyPressed= false;
+  int c=keyPad.getKey();
   lcd.setCursor(0,0);
-  lcd.print(t);
-  if (keyPressed)
-  {
-    lcd.clear();
-    lcd.setCursor(0,1);
-    lcd.print("Key pressed");
-    keyPressed= false;
-    char c=keyPad.getKey();
-    lcd.setCursor(0,0);
-    lcd.print(c);
-    delay(2000);
-    return (c-52);
-  }
+  lcd.print(c);
+  delay(2000);
+  return (c-52);*/
+  
   return -1;
 }
 
@@ -277,10 +281,14 @@ void setup()
 
   lcd.begin();
   lcd.backlight();
-
+  //delay(10000);
   print_LCD("starting...",0,0);
   delay(1000);
-  initialize_keypad();
+  keypad.begin();                       // initialize the keypad
+  delay(1000);
+  print_LCD("keypad ok...",0,1);
+  delay(1000);
+  //initialize_keypad();
   count++;
   lcd.clear();
   lcd.setCursor(0,0);
@@ -291,5 +299,50 @@ void setup()
 
 void loop() 
 {
-  print_menu(main_menu,4); 
+  String detected = "NO PRESS (0)";
+  uint8_t keyFromKeypad1 = -1; // this is the returned ASCII value entered for the key pressed on the keypad. If no key pressed, binary 0 is returned.
+  keyFromKeypad1 = keypad.getKey();
+  if (keyFromKeypad1 != RETURN_NO_KEY_IN_BUFFER)               // if a key is pressed, display it (else we just continue on)
+  {
+    detected = "PRESS (1)";
+  } 
+  delay(100);
+  
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(detected);
+  
+//  print_menu(main_menu,4);
+//  keypad.scanKeys();  
+//  
+//   uint8_t keyFromKeypad; // this is the returned ASCII value entered for the key pressed on the keypad. If no key pressed, binary 0 is returned.
+//  keypad.flushKeys(); // Removes any keys from the keypad buffer. May not be necessary if you don't care if keys were already in the buffer.
+//  
+//  // call the getKeyUntil() function. This function also calls scanKeys() many times, so you don't need to call scanKeys().
+//  // This function waits for one of the termination conditions to occur, and then returns (i.e. this function blocks other code from running until it is done).
+//  // Note: If running a Particle device, this function getKeyUntil() will automatically call Particle.process() to keep the cloud connection alive.
+//  lcd.clear();
+//  lcd.setCursor(0,0);
+//  lcd.print("wait");
+//  keyFromKeypad = keypad.getKeyUntil(2000);
+//  lcd.clear();
+//  lcd.setCursor(0,0);
+//  lcd.print("Pizdes1");
+//  if (keyFromKeypad != RETURN_NO_KEY_IN_BUFFER)  // if a key is pressed, display it.
+//  {
+//    // display the returned ASCII keypad character.
+//    lcd.clear();
+//    lcd.setCursor(0,0);
+//    lcd.print("The returned character is: ");
+//    lcd.setCursor(0,1);
+//    lcd.println(char(keyFromKeypad));
+//    delay(5000);
+//  }
+//  else{lcd.clear();
+//  lcd.setCursor(0,0);
+//  lcd.print("Pizdes2");}
+//  
+//  lcd.clear();
+//  lcd.setCursor(0,0);
+//  lcd.print("Pizdes3");
 }
