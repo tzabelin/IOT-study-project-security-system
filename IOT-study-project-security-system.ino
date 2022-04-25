@@ -34,7 +34,9 @@ struct RfidEntry {
   byte role;
 };
 
-int securityMode=0;
+int securityMode = 0;
+bool alertTriggered = false;
+
 bool keyPressed = false;
 uint8_t intPin = D8;
 
@@ -98,6 +100,11 @@ struct menu_entry sensors_menu[3]={{"Press 1 to check movement sensor",&check_mo
 
 void handleRoot() {
   server.send(200, "text/html", htmlSourceString);
+}
+
+void getAlert() 
+{
+  server.send(200, "text/plane", "");
 }
 
 /* ### MFRC522 RFID ### */
