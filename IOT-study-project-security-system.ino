@@ -24,16 +24,49 @@
 #define SS_PIN D4
 #define RST_PIN D0
 
-char keys[] = ".8520741edhn963sNF";
-//char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
+/* ### KEYBOARD LAYOUT ### */
+
+// s n
+// 1 2 3 h
+// 4 5 6 d
+// 7 8 9 e
+//  0  . 
+
+// Where: 
+//  s - ESC
+//  n - END
+//  h - HM
+//  d - DEL
+//  e - ENTER
+
+char keys[] = ".8520741edhn963sNF"; // N = NoKey, F = Fail (e.g. >1 keys pressed)
 
 /* ### GLOBAL OBJECTS ### */
+
+// Memory Structure
+// 0     + byte               | RfidEntries size
+// 1     + RfidEntry <FB>     | RfidEntries[0]
+// 2     | ...                |
+// 3     |                    |
+// ...                        | RfidEntries[0..3] data 
+// 116   + RfidEntry <LB>     | RfidEntries[3]
+// 117   + byte               | ActionEntries size
+// 118   + ActionEntry        | ActionEntries[0]
+// 119   |                    |
+// 120   |                    |
 
 struct RfidEntry {
   byte nuid[4];
   char _name[24];
   byte role;
 };
+
+struct ActionEntry {
+  int eventTime;
+  byte type;
+  byte nuid[4];
+};
+
 
 char key = 'N';
 
@@ -91,10 +124,6 @@ void check_Hall_sensor()
     lcd.print("The door is closed");
    delay(2000);}
 }
-
-byte nuidPICC[4];
-byte rfidEntriesSize;
-RfidEntry rfidEntries[4];
 
 /* ### MENU ENTRIES ### */
 struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
@@ -172,7 +201,12 @@ int readIntFromEEPROM(int addr){
 }
 
 void writeRfidBufferToEEPROM(){
-  writeByteToEEPROM(0, rfidEntriesSize);
+  writeByteToEEPROM(0, rfidEntriesSize); //0
+
+  // RFID_E[0]: 1-29
+  // RFID_E[1]: 30-58
+  // RFID_E[2]: 59-87
+  // RFID_E[3]: 88-116
   
   for (int i = 0; i < rfidEntriesSize; i++){
     EEPROM.put(i*29+1, rfidEntries[i]);
@@ -191,6 +225,29 @@ void readRfidBufferFromEEPROM(){
 
 void readRfidEntryFromEEPROM(int addr, RfidEntry entry){
   EEPROM.get(addr, entry);
+}
+
+void writeRfidBufferToEEPROM(){
+  writeByteToEEPROM(0, rfidEntriesSize); //0
+
+  // RFID_E[0]: 1-29
+  // RFID_E[1]: 30-58
+  // RFID_E[2]: 59-87
+  // RFID_E[3]: 88-116
+  
+  for (int i = 0; i < rfidEntriesSize; i++){
+    EEPROM.put(i*29+1, rfidEntries[i]);
+  }
+  
+  EEPROM.commit();
+}
+
+void readRfidBufferFromEEPROM(){
+  EEPROM.get(0, rfidEntriesSize);
+  
+  for (int i = 0; i < 4; i++){
+    EEPROM.get(i*29+1, rfidEntries[i]);
+  }
 }
 
 
