@@ -5,8 +5,11 @@
 #include <Arduino.h>
 #include <I2CKeyPad.h>
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
 #include <EEPROM.h>
 #include "Menu.h"
+#include "HtmlSource.h"
 
 /* ### DEFINE ### */
 
@@ -37,7 +40,6 @@ struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 f
 struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL,0},{"Press 2 to delete existing RFID", NULL,1}};
 struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL,0},{"Press 2 to check Hall sensor", NULL,1},{"Press 3 to check RFID",NULL,2}};
 
-
 // Function interrupt
 // void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
 
@@ -47,6 +49,14 @@ I2CKeyPad keyPad(KEYPAD_ADDRESS);
 char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g. >1 keys pressed)
 
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
+
+ESP8266WebServer server(80);
+
+/* ### Web Server ### */
+
+void handleRoot() {
+  server.send(200, "text/html", htmlSourceString);
+}
 
 /* ### MFRC522 RFID ### */
 
@@ -345,5 +355,17 @@ void setup()
 
 void loop() 
 {
-  print_menu(main_menu,4); 
+  // Check keypress each 50ms
+  
+  // If key pressed:
+  // 1. If menu - move menu (if 2 - up, 8 - down)
+  // 2. If textfield - enter values or on "Enter" proceed to next menu element
+
+  // We should store last key in a global variable. If key is pressed - value is assigned. 
+  // Next functions check if value is assigned or not.
+  // 1. If assigned - key was pressed. Unassign it to "N" (No Key)
+  // 2. If not assigned - key was not pressed.
+  
+  print_menu(main_menu,4);
+  server.handleClient();
 }
