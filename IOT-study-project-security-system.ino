@@ -34,7 +34,6 @@ int securityMode=0;
 bool keyPressed = false;
 uint8_t intPin = D8;
 
-
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the rfid class
 PCF8574 sensorMultiplexer(0x00); //Instance of the pcf8574 multiplexor class for sensors
 
@@ -50,8 +49,16 @@ I2cKeypad keypad( ((char*)keyMap), rowPins, colPins,  KEYPAD_ROWS, KEYPAD_COlS, 
 
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
 
+/* ### PCF8574 MULTIPLEXERS ### */
 
-/* ### SENSORS ROUTINS ### */
+void initializeKeypad()
+{
+  lcd.setCursor(0,1);
+  lcd.print("KEYPAD_BEGIN");
+  keyPad.begin();
+  delay(100);
+  lcd.print("KEYPAD_READY");
+}
 
 void check_movement_sensor()
 {
@@ -80,6 +87,9 @@ void check_Hall_sensor()
     delay(2000);}
 }
 
+byte nuidPICC[4];
+byte rfidEntriesSize;
+RfidEntry rfidEntries[4];
 
 /* ### MENU ENTRIES ### */
 struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
@@ -121,28 +131,62 @@ bool isRfidMifareClassic(){
   }
 }
 
+/* ### EEPROM ### */
 
+struct RfidEntry {
+  byte nuid[4];
+  char _name[24];
+  byte role;
+};
 
-/* ### PCF8574 MULTIPLEXERS ### */
-
-void ICACHE_RAM_ATTR keyPressedOnPCF8574()
-{
-   keyPressed = true;
+void initializeEEPROM(){
+  EEPROM.begin(256);
 }
 
-//void initialize_keypad()
-//{
-//  lcd.setCursor(0,1);
-//  lcd.print("Keypad initialization");
-//  //pinMode(D8, INPUT);
-//  delay(500);
-//  pinMode(intPin, INPUT);
-//  attachInterrupt(digitalPinToInterrupt(intPin), keyPressedOnPCF8574, FALLING);
-//  lcd.setCursor(0,1);
-//  lcd.print("Interrupt attached");
-//  delay(1000);
-//  keypad.begin(); 
-//}
+void writeByteToEEPROM(int addr, byte val){
+  EEPROM.write(addr, val);
+  EEPROM.commit();
+}
+
+byte readByteFromEEPROM(int addr){
+  byte val;
+  EEPROM.get(addr, val);
+  return val;
+}
+
+void writeIntToEEPROM(int addr, int val){
+  EEPROM.put(addr, val);
+  EEPROM.commit();
+}
+
+int readIntFromEEPROM(int addr){
+  int val;
+  EEPROM.get(addr, val);
+  return val;
+}
+
+void writeRfidBufferToEEPROM(){
+  writeByteToEEPROM(0, rfidEntriesSize);
+  
+  for (int i = 0; i < rfidEntriesSize; i++){
+    EEPROM.put(i*29+1, rfidEntries[i]);
+  }
+  
+  EEPROM.commit();
+}
+
+void readRfidBufferFromEEPROM(){
+  EEPROM.get(0, rfidEntriesSize);
+  
+  for (int i = 0; i < 4; i++){
+    EEPROM.get(i*29+1, rfidEntries[i]);
+  }
+}
+
+RfidEntry readRfidEntryFromEEPROM(){
+  EEPROM.get(addr,data);
+}
+
 
 int read()
 {/*
@@ -231,20 +275,20 @@ void print_menu(struct menu_entry* menu, int size)
   int running_line=0;
   int key=-1;
   while(true){
-print_LCD(menu[running_line].text, 0, 0);
-print_LCD(menu[running_line+1].text, 0, 1);
-key=read();
-delay(1000);
-/*if(key!=-1 && key<size)
-{
-  lcd.clear();
-(*main_menu[key].action)();
-key=-1;
-}
-*/
-//running_line++;
-//running_line%=(size-1);
-lcd.clear();}
+  print_LCD(menu[running_line].text, 0, 0);
+  print_LCD(menu[running_line+1].text, 0, 1);
+  key=read();
+  delay(1000);
+  /*if(key!=-1 && key<size)
+  {
+    lcd.clear();
+    (*main_menu[key].action)();
+    key=-1;
+  }
+  */
+  //running_line++;
+  //running_line%=(size-1);
+  lcd.clear();}
 }
 
 
@@ -287,6 +331,11 @@ void security_mode_set()
 
 /* ### UTILITIES ### */
 
+void initWire(){
+  Wire.begin();
+  Wire.setClock(400000);
+}
+
 /**
    Helper routine to dump a byte array as hex values to Serial.
 */
@@ -311,7 +360,8 @@ void printDec(byte *buffer, byte bufferSize) {
 void setup() 
 {
   delay(2000);
-  Wire.begin();
+  
+  initWire();
 
   lcd.begin();
   lcd.backlight();
