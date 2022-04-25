@@ -28,6 +28,10 @@ int securityMode=0;
 bool keyPressed = false;
 uint8_t intPin = D8;
 
+byte nuidPICC[4];
+byte rfidEntriesSize;
+RfidEntry rfidEntries[4];
+
 /* ### MENU ENTRIES ### */
 struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
 struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL,0},{"Press 2 to delete existing RFID", NULL,1}};
@@ -75,7 +79,61 @@ bool isRfidMifareClassic(){
   }
 }
 
+/* ### EEPROM ### */
 
+struct RfidEntry {
+  byte nuid[4];
+  char _name[24];
+  byte role;
+};
+
+void initializeEEPROM(){
+  EEPROM.begin(256);
+}
+
+void writeByteToEEPROM(int addr, byte val){
+  EEPROM.write(addr, val);
+  EEPROM.commit();
+}
+
+byte readByteFromEEPROM(int addr){
+  byte val;
+  EEPROM.get(addr, val);
+  return val;
+}
+
+void writeIntToEEPROM(int addr, int val){
+  EEPROM.put(addr, val);
+  EEPROM.commit();
+}
+
+int readIntFromEEPROM(int addr){
+  int val;
+  EEPROM.get(addr, val);
+  return val;
+}
+
+void writeRfidBufferToEEPROM(){
+  writeByteToEEPROM(0, rfidEntriesSize);
+  
+  for (int i = 0; i < rfidEntriesSize; i++){
+    EEPROM.put(i*29+1, rfidEntries[i]);
+  }
+  
+  EEPROM.commit();
+}
+
+void readRfidBufferFromEEPROM(){
+  EEPROM.get(0, rfidEntriesSize);
+  
+  for (int i = 0; i < 4; i++){
+    EEPROM.get(i*29+1, rfidEntries[i]);
+  }
+}
+
+RfidEntry readRfidEntryFromEEPROM(){
+  EEPROM.get(addr,data);
+}
 
 /* ### PCF8574 MULTIPLEXERS ### */
 
