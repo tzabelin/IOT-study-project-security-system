@@ -34,12 +34,14 @@ struct RfidEntry {
   byte role;
 };
 
+char key='N';
+
 int securityMode=0;
 bool keyPressed = false;
 uint8_t intPin = D8;
 
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the rfid class
-PCF8574 sensorMultiplexer(0x00); //Instance of the pcf8574 multiplexor class for sensors
+PCF8574 sensorMultiplexer(0x20); //Instance of the pcf8574 multiplexor class for sensors
 
 I2CKeyPad keyPad(KEYPAD_ADDRESS);
 
@@ -60,29 +62,30 @@ void initializeKeypad()
 
 void check_movement_sensor()
 {
-  if(sensorMultiplexer.digitalRead(P1))
-    {lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print("Movement detected");
-    delay(2000);}
-    else{lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print("Movement not detected");
-    delay(2000);}
+//  if(sensorMultiplexer.digitalRead(P0))
+//    {lcd.clear();
+//    lcd.setCursor(0,0);
+//    lcd.print("Movement detected");
+//    delay(2000);}
+//    else{lcd.clear();
+//    lcd.setCursor(0,0);
+//    lcd.print("Movement not detected");
+//    delay(2000);}
 }
 
 void check_Hall_sensor()
 {
-  if(sensorMultiplexer.digitalRead(P2))
+  
+  if(sensorMultiplexer.read8() & B00000011)
   {lcd.clear();
     lcd.setCursor(0,0);
-    lcd.print("The door is closed");
+    lcd.print("The door is open");
     delay(2000);}
     else
     {lcd.clear();
     lcd.setCursor(0,0);
-    lcd.print("The door is open");
-    delay(2000);}
+    lcd.print("The door is closed");
+   delay(2000);}
 }
 
 byte nuidPICC[4];
@@ -182,7 +185,7 @@ void readRfidEntryFromEEPROM(int addr, RfidEntry entry){
 }
 
 
-int read()
+void read()
 {/*
   lcd.clear();
   lcd.setCursor(0,1);
@@ -197,8 +200,9 @@ int read()
   lcd.print(c);
   delay(2000);
   return (c-52);*/
-  
-  return -1;
+  if(key!='N')
+  {key = keyPad.getKey();}
+  return;
 }
 
 /* ### I2C SCANNER ### */
@@ -267,21 +271,21 @@ void print_LCD(const String str, const int &row, const int &col)
 void print_menu(struct menu_entry* menu, int size)
 {
   int running_line=0;
-  int key=-1;
   while(true){
   print_LCD(menu[running_line].text, 0, 0);
   print_LCD(menu[running_line+1].text, 0, 1);
-  key=read();
-  delay(1000);
-  /*if(key!=-1 && key<size)
+  read();
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(key);
+  delay(2000);
+  if(key!='N')
   {
     lcd.clear();
-    (*main_menu[key].action)();
-    key=-1;
+    (*main_menu[(int)key-52].action)();
   }
-  */
-  //running_line++;
-  //running_line%=(size-1);
+  running_line++;
+  running_line%=(size-1);
   lcd.clear();}
 }
 
@@ -363,7 +367,6 @@ void setup()
   print_LCD("Starting...",0,0);
   initializeKeypad();
   
-  sensorMultiplexer.pinMode(B01111111, INPUT);
   sensorMultiplexer.begin();
 }
 
@@ -382,5 +385,7 @@ void loop()
   // 2. If not assigned - key was not pressed.
   
   print_menu(main_menu,4);
-  server.handleClient();
+  //scanner();
+  //(*sensors_menu[1].action)();
+  //server.handleClient();
 }
