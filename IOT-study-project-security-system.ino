@@ -28,6 +28,12 @@ char keys[] = "123A456B789C*0#DNF";  // Keypad layout. N = NoKey, F = Fail (e.g.
 
 /* ### GLOBAL OBJECTS ### */
 
+struct RfidEntry {
+  byte nuid[4];
+  char _name[24];
+  byte role;
+};
+
 int securityMode=0;
 bool keyPressed = false;
 uint8_t intPin = D8;
@@ -127,12 +133,6 @@ bool isRfidMifareClassic(){
 
 /* ### EEPROM ### */
 
-struct RfidEntry {
-  byte nuid[4];
-  char _name[24];
-  byte role;
-};
-
 void initializeEEPROM(){
   EEPROM.begin(256);
 }
@@ -177,8 +177,8 @@ void readRfidBufferFromEEPROM(){
   }
 }
 
-RfidEntry readRfidEntryFromEEPROM(){
-  EEPROM.get(addr,data);
+void readRfidEntryFromEEPROM(int addr, RfidEntry entry){
+  EEPROM.get(addr, entry);
 }
 
 
@@ -360,13 +360,9 @@ void setup()
   lcd.begin();
   lcd.backlight();
   //delay(10000);
-  print_LCD("starting...",0,0);
-  delay(1000);
-  keypad.begin();                       // initialize the keypad
-  delay(1000);
-  print_LCD("keypad ok...",0,1);
-  delay(1000);
-  //initialize_keypad();
+  print_LCD("Starting...",0,0);
+  initializeKeypad
+  
   sensorMultiplexer.pinMode(B01111111, INPUT);
   sensorMultiplexer.begin();
 }

@@ -1,676 +1,673 @@
 /* ### HTML SOURCE FILE ### */
 
-String htmlSourceString = "" + 
-"<!DOCTYPE html>" + 
-"<!-- saved from url=(0174)index.html -->" + 
-"<html lang=\"en\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + 
-"    <!-- Required meta tags -->" + 
-"    " + 
-"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">" + 
-"    <title>Corona Admin</title>" + 
-"" + 
-"    <!-- plugins:css -->" + 
-"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/mdi/css/materialdesignicons.min.css\">" + 
-"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/css/vendor.bundle.base.css\">" + 
-"    <!-- endinject -->" + 
-"" + 
-"  <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Rubik\">" + 
-" <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Rubik:300\">" + 
-" <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Rubik:500\">" + 
-" " + 
-"    <!-- Plugin css for this page -->" + 
-"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/flag-icon-css/css/flag-icon.min.css\">" + 
-"    <!-- End plugin css for this page -->" + 
-"    <!-- inject:css -->" + 
-"    <!-- endinject -->" + 
-"    <!-- Layout styles -->" + 
-"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/css/style.css\">" + 
-"    <!-- End layout styles -->" + 
-"    <link rel=\"shortcut icon\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/favicon.png\">" + 
-" " + 
-"  </head>" + 
-"  <body>" + 
-"    <div class=\"container-scroller\">" + 
-"      <!-- partial:partials/_sidebar.html -->" + 
-"" + 
-"      <!-- partial -->" + 
-"      <div class=\"container-fluid page-body-wrapper\">" + 
-"        <!-- partial:partials/_navbar.html -->" + 
-"        <nav class=\"navbar p-0 fixed-top d-flex flex-row\">" + 
-"     <!-- <div class=\"sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top\">" + 
-"     <a class=\"sidebar-brand brand-logo\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_full.svg\" alt=\"logo\"></a>" + 
-"     <a class=\"sidebar-brand brand-logo-mini\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_collapsed.svg\" alt=\"logo\"></a>" + 
-"          </div> -->" + 
-"     " + 
-"     <div class=\"navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center\">" + 
-"            <a class=\"navbar-brand brand-logo-mini\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_collapsed.svg\" alt=\"logo\"></a>" + 
-"          </div>" + 
-"     " + 
-"          <div class=\"navbar-menu-wrapper flex-grow d-flex align-items-stretch\">" + 
-"     <div class=\"navbar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center\">" + 
-"       <a class=\"navbar-brand brand-logo\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_full.svg\" alt=\"logo\"></a>" + 
-"            </div>" + 
-"            <ul class=\"navbar-nav navbar-nav-right\">" + 
-"              <li class=\"nav-item dropdown d-none d-lg-block\">" + 
-"                <a class=\"nav-link btn btn-success create-new-button\" id=\"createbuttonDropdown\" data-toggle=\"dropdown\" aria-expanded=\"false\" href=\"index.html\">+ Create New Project</a>" + 
-"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"createbuttonDropdown\">" + 
-"                  <h6 class=\"p-3 mb-0\">Projects</h6>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-file-outline text-primary\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject ellipsis mb-1\">Software Development</p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-web text-info\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject ellipsis mb-1\">UI Development</p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-layers text-danger\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject ellipsis mb-1\">Software Testing</p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <p class=\"p-3 mb-0 text-center\">See all projects</p>" + 
-"                </div>" + 
-"              </li>" + 
-"              <li class=\"nav-item nav-settings d-none d-lg-block\">" + 
-"                <a class=\"nav-link\" href=\"index.html\">" + 
-"                  <i class=\"mdi mdi-view-grid\"></i>" + 
-"                </a>" + 
-"              </li>" + 
-"              <li class=\"nav-item dropdown border-left\">" + 
-"                <a class=\"nav-link count-indicator dropdown-toggle\" id=\"messageDropdown\" href=\"index.html\" data-toggle=\"dropdown\" aria-expanded=\"false\">" + 
-"                  <i class=\"mdi mdi-email\"></i>" + 
-"                  <span class=\"count bg-success\"></span>" + 
-"                </a>" + 
-"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"messageDropdown\">" + 
-"                  <h6 class=\"p-3 mb-0\">Messages</h6>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face4.jpg\" alt=\"image\" class=\"rounded-circle profile-pic\">" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject ellipsis mb-1\">Mark send you a message</p>" + 
-"                      <p class=\"text-muted mb-0\"> 1 Minutes ago </p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face2.jpg\" alt=\"image\" class=\"rounded-circle profile-pic\">" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject ellipsis mb-1\">Cregh send you a message</p>" + 
-"                      <p class=\"text-muted mb-0\"> 15 Minutes ago </p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face3.jpg\" alt=\"image\" class=\"rounded-circle profile-pic\">" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject ellipsis mb-1\">Profile picture updated</p>" + 
-"                      <p class=\"text-muted mb-0\"> 18 Minutes ago </p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <p class=\"p-3 mb-0 text-center\">4 new messages</p>" + 
-"                </div>" + 
-"              </li>" + 
-"              <li class=\"nav-item dropdown border-left\">" + 
-"                <a class=\"nav-link count-indicator dropdown-toggle\" id=\"notificationDropdown\" href=\"index.html\" data-toggle=\"dropdown\">" + 
-"                  <i class=\"mdi mdi-bell\"></i>" + 
-"                  <span class=\"count bg-danger\"></span>" + 
-"                </a>" + 
-"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"notificationDropdown\">" + 
-"                  <h6 class=\"p-3 mb-0\">Notifications</h6>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-calendar text-success\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject mb-1\">Event today</p>" + 
-"                      <p class=\"text-muted ellipsis mb-0\"> Just a reminder that you have an event today </p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-settings text-danger\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject mb-1\">Settings</p>" + 
-"                      <p class=\"text-muted ellipsis mb-0\"> Update dashboard </p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-link-variant text-warning\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject mb-1\">Launch Admin</p>" + 
-"                      <p class=\"text-muted ellipsis mb-0\"> New admin wow! </p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <p class=\"p-3 mb-0 text-center\">See all notifications</p>" + 
-"                </div>" + 
-"              </li>" + 
-"              <li class=\"nav-item dropdown\">" + 
-"                <a class=\"nav-link\" id=\"profileDropdown\" href=\"index.html\" data-toggle=\"dropdown\">" + 
-"                  <div class=\"navbar-profile\">" + 
-"                    <img class=\"img-xs rounded-circle\" src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces-clipart/pic-4.png\" alt=\"\">" + 
-"                    <p class=\"mb-0 d-none d-sm-block navbar-profile-name\">Developer</p>" + 
-"                    <i class=\"mdi mdi-menu-down d-none d-sm-block\"></i>" + 
-"                  </div>" + 
-"                </a>" + 
-"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"profileDropdown\">" + 
-"                  <h6 class=\"p-3 mb-0\">Profile</h6>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-settings text-success\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject mb-1\">Settings</p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <a class=\"dropdown-item preview-item\">" + 
-"                    <div class=\"preview-thumbnail\">" + 
-"                      <div class=\"preview-icon bg-dark rounded-circle\">" + 
-"                        <i class=\"mdi mdi-logout text-danger\"></i>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <div class=\"preview-item-content\">" + 
-"                      <p class=\"preview-subject mb-1\">Log out</p>" + 
-"                    </div>" + 
-"                  </a>" + 
-"                  <div class=\"dropdown-divider\"></div>" + 
-"                  <p class=\"p-3 mb-0 text-center\">Advanced settings</p>" + 
-"                </div>" + 
-"              </li>" + 
-"            </ul>" + 
-"            <button class=\"navbar-toggler navbar-toggler-right d-lg-none align-self-center\" type=\"button\" data-toggle=\"offcanvas\">" + 
-"              <span class=\"mdi mdi-format-line-spacing\"></span>" + 
-"            </button>" + 
-"          </div>" + 
-"        </nav>" + 
-"        <!-- partial -->" + 
-"        <div class=\"main-panel\">" + 
-"          <div class=\"content-wrapper\">" + 
-"            <div class=\"row\">" + 
-"              <div class=\"col-12 grid-margin stretch-card\">" + 
-"                <div class=\"card corona-gradient-card\">" + 
-"                  <div class=\"card-body py-0 px-0 px-sm-3\">" + 
-"                    <div class=\"row align-items-center\">" + 
-"                      <div class=\"col-4 col-sm-3 col-xl-2\">" + 
-"                        <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/dashboard/warning_sign.png\" class=\"gradient-corona-img img-fluid\" alt=\"\">" + 
-"                      </div>" + 
-"                      <div class=\"col-5 col-sm-7 col-xl-8 p-0 text-center\">" + 
-"                        <h1 class=\"display-3 mb-1 mb-sm-0\">Alert !</h1>" + 
-"                        <p class=\"mb-0 font-weight-normal d-none d-sm-block\">Intruder detected</p>" + 
-"                      </div>" + 
-"                      <div class=\"col-3 col-sm-2 col-xl-2 pl-0 text-center\">" + 
-"                        <span>" + 
-"                          <a href=\"index.html\" class=\"btn btn-outline-light btn-rounded get-started-btn\">Got it</a>" + 
-"                        </span>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"            </div>" + 
-"            <div class=\"row\">" + 
-"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" + 
-"                <div class=\"card\">" + 
-"                  <div class=\"card-body\">" + 
-"                    <div class=\"row\">" + 
-"                      <div class=\"col-9\">" + 
-"                        <div class=\"d-flex align-items-center align-self-start\">" + 
-"                          <h3 class=\"mb-0\">Active</h3>" + 
-"                          <span class=\"text-success ml-2 mb-0 font-weight-medium mdi mdi-checkbox-marked-circle\"></span>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                      <div class=\"col-3\">" + 
-"                        <div class=\"icon icon-box-success \">" + 
-"                          <span class=\"mdi mdi-emoticon-happy icon-item\"></span>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <h6 class=\"text-muted font-weight-normal\">Security system</h6>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" + 
-"                <div class=\"card\">" + 
-"                  <div class=\"card-body\">" + 
-"                    <div class=\"row\">" + 
-"                      <div class=\"col-9\">" + 
-"                        <div class=\"d-flex align-items-center align-self-start\">" + 
-"                          <h3 class=\"mb-0\">3</h3>" + 
-"                          <span class=\"text-success ml-2 mb-0 font-weight-medium mdi mdi-dots-horizontal\"></span>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                      <div class=\"col-3\">" + 
-"                        <div class=\"icon icon-box-success\">" + 
-"                          <span class=\"mdi mdi-emoticon-happy icon-item\"></span>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <h6 class=\"text-muted font-weight-normal\">Active sensors</h6>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" + 
-"                <div class=\"card\">" + 
-"                  <div class=\"card-body\">" + 
-"                    <div class=\"row\">" + 
-"                      <div class=\"col-9\">" + 
-"                        <div class=\"d-flex align-items-center align-self-start\">" + 
-"                          <h3 class=\"mb-0\">5 min</h3>" + 
-"                          <p class=\"text-danger ml-2 mb-0 font-weight-medium\"> &lt; 1 day</p>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                      <div class=\"col-3\">" + 
-"                        <div class=\"icon icon-box-danger\">" + 
-"                          <span class=\"mdi mdi-emoticon-sad icon-item\"></span>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <h6 class=\"text-muted font-weight-normal\">Uptime</h6>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" + 
-"                <div class=\"card\">" + 
-"                  <div class=\"card-body\">" + 
-"                    <div class=\"row\">" + 
-"                      <div class=\"col-9\">" + 
-"                        <div class=\"d-flex align-items-center align-self-start\">" + 
-"                          <h3 class=\"mb-0\">5</h3>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                      <div class=\"col-3\">" + 
-"                        <div class=\"icon icon-box-success \">" + 
-"                          <span class=\"mdi mdi-emoticon-happy icon-item\"></span>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                    <h6 class=\"text-muted font-weight-normal\">Registered IDs</h6>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"            </div>" + 
-"            <div class=\"row\">" + 
-"              <div class=\"col-md-4 grid-margin stretch-card\">" + 
-"                <div class=\"card\">" + 
-"                  <div class=\"card-body\">" + 
-"                    <h4 class=\"card-title\">Empty space</h4>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"              <div class=\"col-md-8 grid-margin stretch-card\">" + 
-"                <div class=\"card\">" + 
-"                  <div class=\"card-body\">" + 
-"                    <div class=\"d-flex flex-row justify-content-between\">" + 
-"                      <h4 class=\"card-title mb-1\">Last actions</h4>" + 
-"                      <p class=\"text-muted mb-1\">Information</p>" + 
-"                    </div>" + 
-"                    <!-- bg-success bg-primary bg-info bg-danger bg-warning -->" + 
-"                    <div class=\"row\">" + 
-"                      <div class=\"col-12\">" + 
-"                        <div class=\"preview-list\">" + 
-"                          <div class=\"preview-item border-bottom\">" + 
-"                            <div class=\"preview-thumbnail\">" + 
-"                              <div class=\"preview-icon bg-success\">" + 
-"                                <i class=\"mdi mdi-nfc\"></i>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" + 
-"                              <div class=\"flex-grow\">" + 
-"                                <h6 class=\"preview-subject\">NFC Sensor</h6>" + 
-"                                <p class=\"text-muted mb-0\">RFID card was used successfully (Tester#4402)</p>" + 
-"                              </div>" + 
-"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" + 
-"                                <p class=\"text-muted\">4 minutes ago</p>" + 
-"                                <p class=\"text-muted mb-0\">Main entrance</p>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                          </div>" + 
-"                          <div class=\"preview-item border-bottom\">" + 
-"                            <div class=\"preview-thumbnail\">" + 
-"                              <div class=\"preview-icon bg-warning\">" + 
-"                                <i class=\"mdi mdi-nfc\"></i>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" + 
-"                              <div class=\"flex-grow\">" + 
-"                                <h6 class=\"preview-subject\">NFC Sensor</h6>" + 
-"                                <p class=\"text-muted mb-0\">Someone tried to scan unregistered RFID card</p>" + 
-"                              </div>" + 
-"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" + 
-"                                <p class=\"text-muted\">6 minutes ago</p>" + 
-"                                <p class=\"text-muted mb-0\">Main entrance</p>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                          </div>" + 
-"                          <div class=\"preview-item border-bottom\">" + 
-"                            <div class=\"preview-thumbnail\">" + 
-"                              <div class=\"preview-icon bg-primary\">" + 
-"                                <i class=\"mdi mdi-security\"></i>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" + 
-"                              <div class=\"flex-grow\">" + 
-"                                <h6 class=\"preview-subject\">Secrity system on</h6>" + 
-"                                <p class=\"text-muted mb-0\">Security system was turned on by Tester#4402</p>" + 
-"                              </div>" + 
-"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" + 
-"                                <p class=\"text-muted\">35 minutes ago</p>" + 
-"                                <p class=\"text-muted mb-0\">Main entrance</p>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                          </div>" + 
-"                          <div class=\"preview-item border-bottom\">" + 
-"                            <div class=\"preview-thumbnail\">" + 
-"                              <div class=\"preview-icon bg-primary\">" + 
-"                                <i class=\"mdi mdi-exclamation\"></i>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" + 
-"                              <div class=\"flex-grow\">" + 
-"                                <h6 class=\"preview-subject\">Security system off</h6>" + 
-"                                <p class=\"text-muted mb-0\">Security system was turned off by Tester#4402</p>" + 
-"                              </div>" + 
-"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" + 
-"                                <p class=\"text-muted\">55 minutes ago</p>" + 
-"                                <p class=\"text-muted mb-0\">Main entrance</p>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                          </div>" + 
-"                          <div class=\"preview-item\">" + 
-"                            <div class=\"preview-thumbnail\">" + 
-"                              <div class=\"preview-icon bg-danger\">" + 
-"                                <i class=\"mdi mdi-walk\"></i>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" + 
-"                              <div class=\"flex-grow\">" + 
-"                                <h6 class=\"preview-subject\">Motion detected</h6>" + 
-"                                <p class=\"text-muted mb-0\">Motion sensor detected something!</p>" + 
-"                              </div>" + 
-"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" + 
-"                                <p class=\"text-muted\">53 minutes ago</p>" + 
-"                                <p class=\"text-muted mb-0\">Main entrance</p>" + 
-"                              </div>" + 
-"                            </div>" + 
-"                          </div>" + 
-"                        </div>" + 
-"                      </div>" + 
-"                    </div>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"            </div>" + 
-"            <div class=\"row \">" + 
-"              <div class=\"col-12 grid-margin\">" + 
-"                <div class=\"card\">" + 
-"                  <div class=\"card-body\">" + 
-"                    <h4 class=\"card-title\">Registered IDs</h4>" + 
-"                    <div class=\"table-responsive\">" + 
-"                      <table class=\"table\">" + 
-"                        <thead>" + 
-"                          <tr>" + 
-"                            <th>" + 
-"                              <div class=\"form-check form-check-muted m-0\">" + 
-"                                <label class=\"form-check-label\">" + 
-"                                  <input type=\"checkbox\" class=\"form-check-input\">" + 
-"                                <i class=\"input-helper\"></i></label>" + 
-"                              </div>" + 
-"                            </th>" + 
-"                            <th> Name </th>" + 
-"                            <th> ID </th>" + 
-"                            <th> Description </th>" + 
-"                            <th> Last access </th>" + 
-"                            <th> Status </th>" + 
-"                            <th> Actions </th>" + 
-"                          </tr>" + 
-"                        </thead>" + 
-"                        <tbody>" + 
-"                          <tr>" + 
-"                            <td>" + 
-"                              <div class=\"form-check form-check-muted m-0\">" + 
-"                                <label class=\"form-check-label\">" + 
-"                                  <input type=\"checkbox\" class=\"form-check-input\">" + 
-"                                <i class=\"input-helper\"></i></label>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face1.jpg\" alt=\"image\">" + 
-"                              <span class=\"pl-2\">Henry Klein</span>" + 
-"                            </td>" + 
-"                            <td> 02312 </td>" + 
-"                            <td> System admin </td>" + 
-"                            <td> 04 Dec 2019 </td>" + 
-"                            <td>" + 
-"                              <div class=\"badge badge-outline-success\">Approved</div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <div class=\"dropdown m-0\">" + 
-"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" + 
-"                                  <i class=\"mdi mdi-account\"></i>" + 
-"                                </button>" + 
-"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" + 
-"                                  <h6 class=\"dropdown-header\">Settings</h6>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" + 
-"                                  <div class=\"dropdown-divider\"></div>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" + 
-"                                </div>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                          </tr>" + 
-"                          <tr>" + 
-"                            <td>" + 
-"                              <div class=\"form-check form-check-muted m-0\">" + 
-"                                <label class=\"form-check-label\">" + 
-"                                  <input type=\"checkbox\" class=\"form-check-input\">" + 
-"                                <i class=\"input-helper\"></i></label>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face2.jpg\" alt=\"image\">" + 
-"                              <span class=\"pl-2\">Estella Bryan</span>" + 
-"                            </td>" + 
-"                            <td> 02312 </td>" + 
-"                            <td> Manager </td>" + 
-"                            <td> 04 Dec 2019 </td>" + 
-"                            <td>" + 
-"                              <div class=\"badge badge-outline-warning\">Pending</div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <div class=\"dropdown m-0\">" + 
-"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" + 
-"                                  <i class=\"mdi mdi-account\"></i>" + 
-"                                </button>" + 
-"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" + 
-"                                  <h6 class=\"dropdown-header\">Settings</h6>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" + 
-"                                  <div class=\"dropdown-divider\"></div>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" + 
-"                                </div>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                          </tr>" + 
-"                          <tr>" + 
-"                            <td>" + 
-"                              <div class=\"form-check form-check-muted m-0\">" + 
-"                                <label class=\"form-check-label\">" + 
-"                                  <input type=\"checkbox\" class=\"form-check-input\">" + 
-"                                <i class=\"input-helper\"></i></label>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face5.jpg\" alt=\"image\">" + 
-"                              <span class=\"pl-2\">Lucy Abbott</span>" + 
-"                            </td>" + 
-"                            <td> 02312 </td>" + 
-"                            <td> Programmer </td>" + 
-"                            <td> 04 Dec 2019 </td>" + 
-"                            <td>" + 
-"                              <div class=\"badge badge-outline-danger\">Rejected</div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <div class=\"dropdown m-0\">" + 
-"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" + 
-"                                  <i class=\"mdi mdi-account\"></i>" + 
-"                                </button>" + 
-"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" + 
-"                                  <h6 class=\"dropdown-header\">Settings</h6>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" + 
-"                                  <div class=\"dropdown-divider\"></div>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" + 
-"                                </div>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                          </tr>" + 
-"                          <tr>" + 
-"                            <td>" + 
-"                              <div class=\"form-check form-check-muted m-0\">" + 
-"                                <label class=\"form-check-label\">" + 
-"                                  <input type=\"checkbox\" class=\"form-check-input\">" + 
-"                                <i class=\"input-helper\"></i></label>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face3.jpg\" alt=\"image\">" + 
-"                              <span class=\"pl-2\">Peter Gill</span>" + 
-"                            </td>" + 
-"                            <td> 02312 </td>" + 
-"                            <td> Programmer </td>" + 
-"                            <td> 04 Dec 2019 </td>" + 
-"                            <td>" + 
-"                              <div class=\"badge badge-outline-success\">Approved</div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <div class=\"dropdown m-0\">" + 
-"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" + 
-"                                  <i class=\"mdi mdi-account\"></i>" + 
-"                                </button>" + 
-"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" + 
-"                                  <h6 class=\"dropdown-header\">Settings</h6>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" + 
-"                                  <div class=\"dropdown-divider\"></div>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" + 
-"                                </div>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                          </tr>" + 
-"                          <tr>" + 
-"                            <td>" + 
-"                              <div class=\"form-check form-check-muted m-0\">" + 
-"                                <label class=\"form-check-label\">" + 
-"                                  <input type=\"checkbox\" class=\"form-check-input\">" + 
-"                                <i class=\"input-helper\"></i></label>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face4.jpg\" alt=\"image\">" + 
-"                              <span class=\"pl-2\">Sallie Reyes</span>" + 
-"                            </td>" + 
-"                            <td> 02312 </td>" + 
-"                            <td> Dev-ops </td>" + 
-"                            <td> 04 Dec 2019 </td>" + 
-"                            <td>" + 
-"                              <div class=\"badge badge-outline-success\">Approved</div>" + 
-"                            </td>" + 
-"                            <td>" + 
-"                              <div class=\"dropdown m-0\">" + 
-"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" + 
-"                                  <i class=\"mdi mdi-account\"></i>" + 
-"                                </button>" + 
-"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" + 
-"                                  <h6 class=\"dropdown-header\">Settings</h6>" + 
-"                                  <a class=\"dropdown-item\" href=\"\">Edit</a>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" + 
-"                                  <div class=\"dropdown-divider\"></div>" + 
-"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" + 
-"                                </div>" + 
-"                              </div>" + 
-"                            </td>" + 
-"                          </tr>" + 
-"                        </tbody>" + 
-"                      </table>" + 
-"                    </div>" + 
-"                  </div>" + 
-"                </div>" + 
-"              </div>" + 
-"            </div>" + 
-"          </div>" + 
-"          <!-- content-wrapper ends -->" + 
-"          <!-- partial:partials/_footer.html -->" + 
-"          <footer class=\"footer\">" + 
-"            <div class=\"d-sm-flex justify-content-center justify-content-sm-between\">" + 
-"              <span class=\"text-muted d-block text-center text-sm-left d-sm-inline-block\">Copyright © IOTSec, 2021</span>" + 
-"            </div>" + 
-"          </footer>" + 
-"          <!-- partial -->" + 
-"        </div>" + 
-"        <!-- main-panel ends -->" + 
-"      </div>" + 
-"      <!-- page-body-wrapper ends -->" + 
-"    </div>" + 
-"    <!-- container-scroller -->" + 
-"    <!-- plugins:js -->" + 
-"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/js/vendor.bundle.base.js\"></script>" + 
-"    <!-- endinject -->" + 
-" " + 
-"    <!-- inject:js -->" + 
-"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/off-canvas.js\"></script>" + 
-"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/hoverable-collapse.js\"></script>" + 
-"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/misc.js\"></script>" + 
-"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/settings.js\"></script>" + 
-"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/todolist.js\"></script>" + 
-"    <!-- endinject -->" + 
-"    <!-- Custom js for this page -->" + 
-"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/dashboard.js\"></script>" + 
-"    <!-- End custom js for this page -->" + 
-"  " + 
-"" + 
-"</body></html>" + 
-"";
+String htmlSourceString = "" 
+"<!DOCTYPE html>" 
+"<!-- saved from url=(0174)index.html -->" 
+"<html lang=\"en\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" 
+"    <!-- Required meta tags -->" 
+"    " 
+"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">" 
+"    <title>Corona Admin</title>" 
+"" 
+"    <!-- plugins:css -->" 
+"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/mdi/css/materialdesignicons.min.css\">" 
+"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/css/vendor.bundle.base.css\">" 
+"    <!-- endinject -->" 
+"" 
+"  <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Rubik\">" 
+" <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Rubik:300\">" 
+" <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Rubik:500\">" 
+" " 
+"    <!-- Plugin css for this page -->" 
+"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/flag-icon-css/css/flag-icon.min.css\">" 
+"    <!-- End plugin css for this page -->" 
+"    <!-- inject:css -->" 
+"    <!-- endinject -->" 
+"    <!-- Layout styles -->" 
+"    <link rel=\"stylesheet\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/css/style.css\">" 
+"    <!-- End layout styles -->" 
+"    <link rel=\"shortcut icon\" href=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/favicon.png\">" 
+" " 
+"  </head>" 
+"  <body>" 
+"    <div class=\"container-scroller\">" 
+"      <!-- partial:partials/_sidebar.html -->" 
+"" 
+"      <!-- partial -->" 
+"      <div class=\"container-fluid page-body-wrapper\">" 
+"        <!-- partial:partials/_navbar.html -->" 
+"        <nav class=\"navbar p-0 fixed-top d-flex flex-row\">" 
+"     <!-- <div class=\"sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top\">" 
+"     <a class=\"sidebar-brand brand-logo\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_full.svg\" alt=\"logo\"></a>" 
+"     <a class=\"sidebar-brand brand-logo-mini\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_collapsed.svg\" alt=\"logo\"></a>" 
+"          </div> -->" 
+"     " 
+"     <div class=\"navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center\">" 
+"            <a class=\"navbar-brand brand-logo-mini\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_collapsed.svg\" alt=\"logo\"></a>" 
+"          </div>" 
+"     " 
+"          <div class=\"navbar-menu-wrapper flex-grow d-flex align-items-stretch\">" 
+"     <div class=\"navbar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center\">" 
+"       <a class=\"navbar-brand brand-logo\" href=\"index.html\"><img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/logo_full.svg\" alt=\"logo\"></a>" 
+"            </div>" 
+"            <ul class=\"navbar-nav navbar-nav-right\">" 
+"              <li class=\"nav-item dropdown d-none d-lg-block\">" 
+"                <a class=\"nav-link btn btn-success create-new-button\" id=\"createbuttonDropdown\" data-toggle=\"dropdown\" aria-expanded=\"false\" href=\"index.html\">+ Create New Project</a>" 
+"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"createbuttonDropdown\">" 
+"                  <h6 class=\"p-3 mb-0\">Projects</h6>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-file-outline text-primary\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject ellipsis mb-1\">Software Development</p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-web text-info\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject ellipsis mb-1\">UI Development</p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-layers text-danger\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject ellipsis mb-1\">Software Testing</p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <p class=\"p-3 mb-0 text-center\">See all projects</p>" 
+"                </div>" 
+"              </li>" 
+"              <li class=\"nav-item nav-settings d-none d-lg-block\">" 
+"                <a class=\"nav-link\" href=\"index.html\">" 
+"                  <i class=\"mdi mdi-view-grid\"></i>" 
+"                </a>" 
+"              </li>" 
+"              <li class=\"nav-item dropdown border-left\">" 
+"                <a class=\"nav-link count-indicator dropdown-toggle\" id=\"messageDropdown\" href=\"index.html\" data-toggle=\"dropdown\" aria-expanded=\"false\">" 
+"                  <i class=\"mdi mdi-email\"></i>" 
+"                  <span class=\"count bg-success\"></span>" 
+"                </a>" 
+"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"messageDropdown\">" 
+"                  <h6 class=\"p-3 mb-0\">Messages</h6>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face4.jpg\" alt=\"image\" class=\"rounded-circle profile-pic\">" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject ellipsis mb-1\">Mark send you a message</p>" 
+"                      <p class=\"text-muted mb-0\"> 1 Minutes ago </p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face2.jpg\" alt=\"image\" class=\"rounded-circle profile-pic\">" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject ellipsis mb-1\">Cregh send you a message</p>" 
+"                      <p class=\"text-muted mb-0\"> 15 Minutes ago </p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face3.jpg\" alt=\"image\" class=\"rounded-circle profile-pic\">" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject ellipsis mb-1\">Profile picture updated</p>" 
+"                      <p class=\"text-muted mb-0\"> 18 Minutes ago </p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <p class=\"p-3 mb-0 text-center\">4 new messages</p>" 
+"                </div>" 
+"              </li>" 
+"              <li class=\"nav-item dropdown border-left\">" 
+"                <a class=\"nav-link count-indicator dropdown-toggle\" id=\"notificationDropdown\" href=\"index.html\" data-toggle=\"dropdown\">" 
+"                  <i class=\"mdi mdi-bell\"></i>" 
+"                  <span class=\"count bg-danger\"></span>" 
+"                </a>" 
+"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"notificationDropdown\">" 
+"                  <h6 class=\"p-3 mb-0\">Notifications</h6>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-calendar text-success\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject mb-1\">Event today</p>" 
+"                      <p class=\"text-muted ellipsis mb-0\"> Just a reminder that you have an event today </p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-settings text-danger\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject mb-1\">Settings</p>" 
+"                      <p class=\"text-muted ellipsis mb-0\"> Update dashboard </p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-link-variant text-warning\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject mb-1\">Launch Admin</p>" 
+"                      <p class=\"text-muted ellipsis mb-0\"> New admin wow! </p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <p class=\"p-3 mb-0 text-center\">See all notifications</p>" 
+"                </div>" 
+"              </li>" 
+"              <li class=\"nav-item dropdown\">" 
+"                <a class=\"nav-link\" id=\"profileDropdown\" href=\"index.html\" data-toggle=\"dropdown\">" 
+"                  <div class=\"navbar-profile\">" 
+"                    <img class=\"img-xs rounded-circle\" src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces-clipart/pic-4.png\" alt=\"\">" 
+"                    <p class=\"mb-0 d-none d-sm-block navbar-profile-name\">Developer</p>" 
+"                    <i class=\"mdi mdi-menu-down d-none d-sm-block\"></i>" 
+"                  </div>" 
+"                </a>" 
+"                <div class=\"dropdown-menu dropdown-menu-right navbar-dropdown preview-list\" aria-labelledby=\"profileDropdown\">" 
+"                  <h6 class=\"p-3 mb-0\">Profile</h6>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-settings text-success\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject mb-1\">Settings</p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <a class=\"dropdown-item preview-item\">" 
+"                    <div class=\"preview-thumbnail\">" 
+"                      <div class=\"preview-icon bg-dark rounded-circle\">" 
+"                        <i class=\"mdi mdi-logout text-danger\"></i>" 
+"                      </div>" 
+"                    </div>" 
+"                    <div class=\"preview-item-content\">" 
+"                      <p class=\"preview-subject mb-1\">Log out</p>" 
+"                    </div>" 
+"                  </a>" 
+"                  <div class=\"dropdown-divider\"></div>" 
+"                  <p class=\"p-3 mb-0 text-center\">Advanced settings</p>" 
+"                </div>" 
+"              </li>" 
+"            </ul>" 
+"            <button class=\"navbar-toggler navbar-toggler-right d-lg-none align-self-center\" type=\"button\" data-toggle=\"offcanvas\">" 
+"              <span class=\"mdi mdi-format-line-spacing\"></span>" 
+"            </button>" 
+"          </div>" 
+"        </nav>" 
+"        <!-- partial -->" 
+"        <div class=\"main-panel\">" 
+"          <div class=\"content-wrapper\">" 
+"            <div class=\"row\">" 
+"              <div class=\"col-12 grid-margin stretch-card\">" 
+"                <div class=\"card corona-gradient-card\">" 
+"                  <div class=\"card-body py-0 px-0 px-sm-3\">" 
+"                    <div class=\"row align-items-center\">" 
+"                      <div class=\"col-4 col-sm-3 col-xl-2\">" 
+"                        <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/dashboard/warning_sign.png\" class=\"gradient-corona-img img-fluid\" alt=\"\">" 
+"                      </div>" 
+"                      <div class=\"col-5 col-sm-7 col-xl-8 p-0 text-center\">" 
+"                        <h1 class=\"display-3 mb-1 mb-sm-0\">Alert !</h1>" 
+"                        <p class=\"mb-0 font-weight-normal d-none d-sm-block\">Intruder detected</p>" 
+"                      </div>" 
+"                      <div class=\"col-3 col-sm-2 col-xl-2 pl-0 text-center\">" 
+"                        <span>" 
+"                          <a href=\"index.html\" class=\"btn btn-outline-light btn-rounded get-started-btn\">Got it</a>" 
+"                        </span>" 
+"                      </div>" 
+"                    </div>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"            </div>" 
+"            <div class=\"row\">" 
+"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" 
+"                <div class=\"card\">" 
+"                  <div class=\"card-body\">" 
+"                    <div class=\"row\">" 
+"                      <div class=\"col-9\">" 
+"                        <div class=\"d-flex align-items-center align-self-start\">" 
+"                          <h3 class=\"mb-0\">Active</h3>" 
+"                          <span class=\"text-success ml-2 mb-0 font-weight-medium mdi mdi-checkbox-marked-circle\"></span>" 
+"                        </div>" 
+"                      </div>" 
+"                      <div class=\"col-3\">" 
+"                        <div class=\"icon icon-box-success \">" 
+"                          <span class=\"mdi mdi-emoticon-happy icon-item\"></span>" 
+"                        </div>" 
+"                      </div>" 
+"                    </div>" 
+"                    <h6 class=\"text-muted font-weight-normal\">Security system</h6>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" 
+"                <div class=\"card\">" 
+"                  <div class=\"card-body\">" 
+"                    <div class=\"row\">" 
+"                      <div class=\"col-9\">" 
+"                        <div class=\"d-flex align-items-center align-self-start\">" 
+"                          <h3 class=\"mb-0\">3</h3>" 
+"                          <span class=\"text-success ml-2 mb-0 font-weight-medium mdi mdi-dots-horizontal\"></span>" 
+"                        </div>" 
+"                      </div>" 
+"                      <div class=\"col-3\">" 
+"                        <div class=\"icon icon-box-success\">" 
+"                          <span class=\"mdi mdi-emoticon-happy icon-item\"></span>" 
+"                        </div>" 
+"                      </div>" 
+"                    </div>" 
+"                    <h6 class=\"text-muted font-weight-normal\">Active sensors</h6>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" 
+"                <div class=\"card\">" 
+"                  <div class=\"card-body\">" 
+"                    <div class=\"row\">" 
+"                      <div class=\"col-9\">" 
+"                        <div class=\"d-flex align-items-center align-self-start\">" 
+"                          <h3 class=\"mb-0\">5 min</h3>" 
+"                          <p class=\"text-danger ml-2 mb-0 font-weight-medium\"> &lt; 1 day</p>" 
+"                        </div>" 
+"                      </div>" 
+"                      <div class=\"col-3\">" 
+"                        <div class=\"icon icon-box-danger\">" 
+"                          <span class=\"mdi mdi-emoticon-sad icon-item\"></span>" 
+"                        </div>" 
+"                      </div>" 
+"                    </div>" 
+"                    <h6 class=\"text-muted font-weight-normal\">Uptime</h6>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"              <div class=\"col-xl-3 col-sm-6 grid-margin stretch-card\">" 
+"                <div class=\"card\">" 
+"                  <div class=\"card-body\">" 
+"                    <div class=\"row\">" 
+"                      <div class=\"col-9\">" 
+"                        <div class=\"d-flex align-items-center align-self-start\">" 
+"                          <h3 class=\"mb-0\">5</h3>" 
+"                        </div>" 
+"                      </div>" 
+"                      <div class=\"col-3\">" 
+"                        <div class=\"icon icon-box-success \">" 
+"                          <span class=\"mdi mdi-emoticon-happy icon-item\"></span>" 
+"                        </div>" 
+"                      </div>" 
+"                    </div>" 
+"                    <h6 class=\"text-muted font-weight-normal\">Registered IDs</h6>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"            </div>" 
+"            <div class=\"row\">" 
+"              <div class=\"col-md-4 grid-margin stretch-card\">" 
+"                <div class=\"card\">" 
+"                  <div class=\"card-body\">" 
+"                    <h4 class=\"card-title\">Empty space</h4>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"              <div class=\"col-md-8 grid-margin stretch-card\">" 
+"                <div class=\"card\">" 
+"                  <div class=\"card-body\">" 
+"                    <div class=\"d-flex flex-row justify-content-between\">" 
+"                      <h4 class=\"card-title mb-1\">Last actions</h4>" 
+"                      <p class=\"text-muted mb-1\">Information</p>" 
+"                    </div>" 
+"                    <!-- bg-success bg-primary bg-info bg-danger bg-warning -->" 
+"                    <div class=\"row\">" 
+"                      <div class=\"col-12\">" 
+"                        <div class=\"preview-list\">" 
+"                          <div class=\"preview-item border-bottom\">" 
+"                            <div class=\"preview-thumbnail\">" 
+"                              <div class=\"preview-icon bg-success\">" 
+"                                <i class=\"mdi mdi-nfc\"></i>" 
+"                              </div>" 
+"                            </div>" 
+"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" 
+"                              <div class=\"flex-grow\">" 
+"                                <h6 class=\"preview-subject\">NFC Sensor</h6>" 
+"                                <p class=\"text-muted mb-0\">RFID card was used successfully (Tester#4402)</p>" 
+"                              </div>" 
+"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" 
+"                                <p class=\"text-muted\">4 minutes ago</p>" 
+"                                <p class=\"text-muted mb-0\">Main entrance</p>" 
+"                              </div>" 
+"                            </div>" 
+"                          </div>" 
+"                          <div class=\"preview-item border-bottom\">" 
+"                            <div class=\"preview-thumbnail\">" 
+"                              <div class=\"preview-icon bg-warning\">" 
+"                                <i class=\"mdi mdi-nfc\"></i>" 
+"                              </div>" 
+"                            </div>" 
+"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" 
+"                              <div class=\"flex-grow\">" 
+"                                <h6 class=\"preview-subject\">NFC Sensor</h6>" 
+"                                <p class=\"text-muted mb-0\">Someone tried to scan unregistered RFID card</p>" 
+"                              </div>" 
+"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" 
+"                                <p class=\"text-muted\">6 minutes ago</p>" 
+"                                <p class=\"text-muted mb-0\">Main entrance</p>" 
+"                              </div>" 
+"                            </div>" 
+"                          </div>" 
+"                          <div class=\"preview-item border-bottom\">" 
+"                            <div class=\"preview-thumbnail\">" 
+"                              <div class=\"preview-icon bg-primary\">" 
+"                                <i class=\"mdi mdi-security\"></i>" 
+"                              </div>" 
+"                            </div>" 
+"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" 
+"                              <div class=\"flex-grow\">" 
+"                                <h6 class=\"preview-subject\">Secrity system on</h6>" 
+"                                <p class=\"text-muted mb-0\">Security system was turned on by Tester#4402</p>" 
+"                              </div>" 
+"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" 
+"                                <p class=\"text-muted\">35 minutes ago</p>" 
+"                                <p class=\"text-muted mb-0\">Main entrance</p>" 
+"                              </div>" 
+"                            </div>" 
+"                          </div>" 
+"                          <div class=\"preview-item border-bottom\">" 
+"                            <div class=\"preview-thumbnail\">" 
+"                              <div class=\"preview-icon bg-primary\">" 
+"                                <i class=\"mdi mdi-exclamation\"></i>" 
+"                              </div>" 
+"                            </div>" 
+"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" 
+"                              <div class=\"flex-grow\">" 
+"                                <h6 class=\"preview-subject\">Security system off</h6>" 
+"                                <p class=\"text-muted mb-0\">Security system was turned off by Tester#4402</p>" 
+"                              </div>" 
+"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" 
+"                                <p class=\"text-muted\">55 minutes ago</p>" 
+"                                <p class=\"text-muted mb-0\">Main entrance</p>" 
+"                              </div>" 
+"                            </div>" 
+"                          </div>" 
+"                          <div class=\"preview-item\">" 
+"                            <div class=\"preview-thumbnail\">" 
+"                              <div class=\"preview-icon bg-danger\">" 
+"                                <i class=\"mdi mdi-walk\"></i>" 
+"                              </div>" 
+"                            </div>" 
+"                            <div class=\"preview-item-content d-sm-flex flex-grow\">" 
+"                              <div class=\"flex-grow\">" 
+"                                <h6 class=\"preview-subject\">Motion detected</h6>" 
+"                                <p class=\"text-muted mb-0\">Motion sensor detected something!</p>" 
+"                              </div>" 
+"                              <div class=\"mr-auto text-sm-right pt-2 pt-sm-0\">" 
+"                                <p class=\"text-muted\">53 minutes ago</p>" 
+"                                <p class=\"text-muted mb-0\">Main entrance</p>" 
+"                              </div>" 
+"                            </div>" 
+"                          </div>" 
+"                        </div>" 
+"                      </div>" 
+"                    </div>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"            </div>" 
+"            <div class=\"row \">" 
+"              <div class=\"col-12 grid-margin\">" 
+"                <div class=\"card\">" 
+"                  <div class=\"card-body\">" 
+"                    <h4 class=\"card-title\">Registered IDs</h4>" 
+"                    <div class=\"table-responsive\">" 
+"                      <table class=\"table\">" 
+"                        <thead>" 
+"                          <tr>" 
+"                            <th>" 
+"                              <div class=\"form-check form-check-muted m-0\">" 
+"                                <label class=\"form-check-label\">" 
+"                                  <input type=\"checkbox\" class=\"form-check-input\">" 
+"                                <i class=\"input-helper\"></i></label>" 
+"                              </div>" 
+"                            </th>" 
+"                            <th> Name </th>" 
+"                            <th> ID </th>" 
+"                            <th> Description </th>" 
+"                            <th> Last access </th>" 
+"                            <th> Status </th>" 
+"                            <th> Actions </th>" 
+"                          </tr>" 
+"                        </thead>" 
+"                        <tbody>" 
+"                          <tr>" 
+"                            <td>" 
+"                              <div class=\"form-check form-check-muted m-0\">" 
+"                                <label class=\"form-check-label\">" 
+"                                  <input type=\"checkbox\" class=\"form-check-input\">" 
+"                                <i class=\"input-helper\"></i></label>" 
+"                              </div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face1.jpg\" alt=\"image\">" 
+"                              <span class=\"pl-2\">Henry Klein</span>" 
+"                            </td>" 
+"                            <td> 02312 </td>" 
+"                            <td> System admin </td>" 
+"                            <td> 04 Dec 2019 </td>" 
+"                            <td>" 
+"                              <div class=\"badge badge-outline-success\">Approved</div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <div class=\"dropdown m-0\">" 
+"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" 
+"                                  <i class=\"mdi mdi-account\"></i>" 
+"                                </button>" 
+"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" 
+"                                  <h6 class=\"dropdown-header\">Settings</h6>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" 
+"                                  <div class=\"dropdown-divider\"></div>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" 
+"                                </div>" 
+"                              </div>" 
+"                            </td>" 
+"                          </tr>" 
+"                          <tr>" 
+"                            <td>" 
+"                              <div class=\"form-check form-check-muted m-0\">" 
+"                                <label class=\"form-check-label\">" 
+"                                  <input type=\"checkbox\" class=\"form-check-input\">" 
+"                                <i class=\"input-helper\"></i></label>" 
+"                              </div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face2.jpg\" alt=\"image\">" 
+"                              <span class=\"pl-2\">Estella Bryan</span>" 
+"                            </td>" 
+"                            <td> 02312 </td>" 
+"                            <td> Manager </td>" 
+"                            <td> 04 Dec 2019 </td>" 
+"                            <td>" 
+"                              <div class=\"badge badge-outline-warning\">Pending</div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <div class=\"dropdown m-0\">" 
+"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" 
+"                                  <i class=\"mdi mdi-account\"></i>" 
+"                                </button>" 
+"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" 
+"                                  <h6 class=\"dropdown-header\">Settings</h6>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" 
+"                                  <div class=\"dropdown-divider\"></div>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" 
+"                                </div>" 
+"                              </div>" 
+"                            </td>" 
+"                          </tr>" 
+"                          <tr>" 
+"                            <td>" 
+"                              <div class=\"form-check form-check-muted m-0\">" 
+"                                <label class=\"form-check-label\">" 
+"                                  <input type=\"checkbox\" class=\"form-check-input\">" 
+"                                <i class=\"input-helper\"></i></label>" 
+"                              </div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face5.jpg\" alt=\"image\">" 
+"                              <span class=\"pl-2\">Lucy Abbott</span>" 
+"                            </td>" 
+"                            <td> 02312 </td>" 
+"                            <td> Programmer </td>" 
+"                            <td> 04 Dec 2019 </td>" 
+"                            <td>" 
+"                              <div class=\"badge badge-outline-danger\">Rejected</div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <div class=\"dropdown m-0\">" 
+"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" 
+"                                  <i class=\"mdi mdi-account\"></i>" 
+"                                </button>" 
+"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" 
+"                                  <h6 class=\"dropdown-header\">Settings</h6>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" 
+"                                  <div class=\"dropdown-divider\"></div>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" 
+"                                </div>" 
+"                              </div>" 
+"                            </td>" 
+"                          </tr>" 
+"                          <tr>" 
+"                            <td>" 
+"                              <div class=\"form-check form-check-muted m-0\">" 
+"                                <label class=\"form-check-label\">" 
+"                                  <input type=\"checkbox\" class=\"form-check-input\">" 
+"                                <i class=\"input-helper\"></i></label>" 
+"                              </div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face3.jpg\" alt=\"image\">" 
+"                              <span class=\"pl-2\">Peter Gill</span>" 
+"                            </td>" 
+"                            <td> 02312 </td>" 
+"                            <td> Programmer </td>" 
+"                            <td> 04 Dec 2019 </td>" 
+"                            <td>" 
+"                              <div class=\"badge badge-outline-success\">Approved</div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <div class=\"dropdown m-0\">" 
+"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" 
+"                                  <i class=\"mdi mdi-account\"></i>" 
+"                                </button>" 
+"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" 
+"                                  <h6 class=\"dropdown-header\">Settings</h6>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Edit</a>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" 
+"                                  <div class=\"dropdown-divider\"></div>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" 
+"                                </div>" 
+"                              </div>" 
+"                            </td>" 
+"                          </tr>" 
+"                          <tr>" 
+"                            <td>" 
+"                              <div class=\"form-check form-check-muted m-0\">" 
+"                                <label class=\"form-check-label\">" 
+"                                  <input type=\"checkbox\" class=\"form-check-input\">" 
+"                                <i class=\"input-helper\"></i></label>" 
+"                              </div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <img src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/images/faces/face4.jpg\" alt=\"image\">" 
+"                              <span class=\"pl-2\">Sallie Reyes</span>" 
+"                            </td>" 
+"                            <td> 02312 </td>" 
+"                            <td> Dev-ops </td>" 
+"                            <td> 04 Dec 2019 </td>" 
+"                            <td>" 
+"                              <div class=\"badge badge-outline-success\">Approved</div>" 
+"                            </td>" 
+"                            <td>" 
+"                              <div class=\"dropdown m-0\">" 
+"                                <button type=\"button\" class=\"btn btn-outline-success dropdown-toggle\" id=\"dropdownMenuIconButton7\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" 
+"                                  <i class=\"mdi mdi-account\"></i>" 
+"                                </button>" 
+"                                <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuIconButton9\">" 
+"                                  <h6 class=\"dropdown-header\">Settings</h6>" 
+"                                  <a class=\"dropdown-item\" href=\"\">Edit</a>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Suspend</a>" 
+"                                  <div class=\"dropdown-divider\"></div>" 
+"                                  <a class=\"dropdown-item\" href=\"index.html\">Remove</a>" 
+"                                </div>" 
+"                              </div>" 
+"                            </td>" 
+"                          </tr>" 
+"                        </tbody>" 
+"                      </table>" 
+"                    </div>" 
+"                  </div>" 
+"                </div>" 
+"              </div>" 
+"            </div>" 
+"          </div>" 
+"          <!-- content-wrapper ends -->" 
+"          <!-- partial:partials/_footer.html -->" 
+"          <footer class=\"footer\">" 
+"            <div class=\"d-sm-flex justify-content-center justify-content-sm-between\">" 
+"              <span class=\"text-muted d-block text-center text-sm-left d-sm-inline-block\">Copyright © IOTSec, 2021</span>" 
+"            </div>" 
+"          </footer>" 
+"          <!-- partial -->" 
+"        </div>" 
+"        <!-- main-panel ends -->" 
+"      </div>" 
+"      <!-- page-body-wrapper ends -->" 
+"    </div>" 
+"    <!-- container-scroller -->" 
+"    <!-- plugins:js -->" 
+"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/vendors/js/vendor.bundle.base.js\"></script>" 
+"    <!-- endinject -->" 
+" " 
+"    <!-- inject:js -->" 
+"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/off-canvas.js\"></script>" 
+"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/hoverable-collapse.js\"></script>" 
+"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/misc.js\"></script>" 
+"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/settings.js\"></script>" 
+"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/todolist.js\"></script>" 
+"    <!-- endinject -->" 
+"    <!-- Custom js for this page -->" 
+"    <script src=\"https://furc0de.github.io/iotsec-webpanel-references/assets/js/dashboard.js\"></script>" 
+"    <!-- End custom js for this page -->" 
+"</body></html>" ;
