@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <EEPROM.h>
+#include <PCF8574.h>
 #include "Menu.h"
 //#include "i2c-keypad-library-arduino/src/I2cKeypad.h"
 #include "i2c-keypad-library-arduino/src/I2cKeypad.cpp"
@@ -33,16 +34,9 @@ int securityMode=0;
 bool keyPressed = false;
 uint8_t intPin = D8;
 
-/* ### MENU ENTRIES ### */
-struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
-struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL,0},{"Press 2 to delete existing RFID", NULL,1}};
-struct menu_entry sensors_menu[3]={{"Press 1 to check IR sensor",NULL,0},{"Press 2 to check Hall sensor", NULL,1},{"Press 3 to check RFID",NULL,2}};
 
-
-// Function interrupt
-// void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
-
-MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
+MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the rfid class
+PCF8574 sensorMultiplexer(0x00); //Instance of the pcf8574 multiplexor class for sensors
 
 char keyMap[KEYPAD_ROWS][KEYPAD_COlS] = {
   {'1','2','3','A'},                                // row 1 keys
@@ -55,6 +49,46 @@ I2cKeypad keypad( ((char*)keyMap), rowPins, colPins,  KEYPAD_ROWS, KEYPAD_COlS, 
 
 
 LCD_I2C lcd(0x3f, lcdColumns, lcdRows);//standart addresses are 0x3f or 0x27
+
+
+/* ### SENSORS ROUTINS ### */
+
+void check_movement_sensor()
+{
+  if(sensorMultiplexer.digitalRead(P1))
+    {lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Movement detected");
+    delay(2000);}
+    else{lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Movement not detected");
+    delay(2000);}
+}
+
+void check_Hall_sensor()
+{
+  if(sensorMultiplexer.digitalRead(P2))
+  {lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("The door is closed");
+    delay(2000);}
+    else
+    {lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("The door is open");
+    delay(2000);}
+}
+
+
+/* ### MENU ENTRIES ### */
+struct menu_entry main_menu[4]={{"Press 1 for WiFi",&WiFi_control,0},{"Press 2 for RFID control", &RFID_control,1},{"Press 3 for sensors check", NULL,2},{"Press 4 for security mode change",NULL,3}};
+struct menu_entry rfid_menu[2]={{"Press 1 to add new RFID",NULL,0},{"Press 2 to delete existing RFID", NULL,1}};
+struct menu_entry sensors_menu[3]={{"Press 1 to check movement sensor",&check_movement_sensor,0},{"Press 2 to check Hall sensor", &check_Hall_sensor,1},{"Press 3 to check RFID",NULL,2}};
+
+
+// Function interrupt
+// void ICACHE_RAM_ATTR  keyPressedOnPCF8574();
 
 /* ### MFRC522 RFID ### */
 
@@ -272,8 +306,8 @@ void printDec(byte *buffer, byte bufferSize) {
  }
 }
 
+
 /* ### MAIN SUPERLOOP ### */
-int count=0;
 void setup() 
 {
   delay(2000);
@@ -289,11 +323,8 @@ void setup()
   print_LCD("keypad ok...",0,1);
   delay(1000);
   //initialize_keypad();
-  count++;
-  lcd.clear();
-  lcd.setCursor(0,0);
-  //lcd.print(count);
-  delay(1000);
+  sensorMultiplexer.pinMode(B01111111, INPUT);
+  sensorMultiplexer.begin();
 }
 
 
