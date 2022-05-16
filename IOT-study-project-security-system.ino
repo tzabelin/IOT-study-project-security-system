@@ -284,11 +284,10 @@ String inputProcessor()
   int letter_number=key;
   int letter_case=0;
   String input="";
-  if(key=='e')
+  
+  while(key!='e')
   {
-  return input;
-  }
-  if(letter_number>=1 && letter_number<=26)
+    if(letter_number>=1 && letter_number<=26)
   {
     if(letter_case==1) //upper case
     {
@@ -298,7 +297,10 @@ String inputProcessor()
     {
     input+=(char)(letter_number+60);
     }
+    // 40 and 60 are offsets in ascii table for upper and lower case letters
   }
+  }
+  return input;
 }
 /* ### I2C SCANNER ### */
  
